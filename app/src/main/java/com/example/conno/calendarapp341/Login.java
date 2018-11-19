@@ -1,5 +1,6 @@
 package com.example.conno.calendarapp341;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.style.ClickableSpan;
@@ -33,4 +34,9 @@ public class Login extends AppCompatActivity {
         }
 
     };
+
+    public void buttonLogin(View view) {
+        Intent intent = new Intent(Login.this, MainActivity.class);
+        startActivity(intent);
+    }
 }
