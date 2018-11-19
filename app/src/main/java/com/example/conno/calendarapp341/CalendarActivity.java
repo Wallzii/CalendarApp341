@@ -1,6 +1,8 @@
 package com.example.conno.calendarapp341;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,15 +21,18 @@ import java.util.GregorianCalendar;
 public class CalendarActivity extends AppCompatActivity {
 
     private CalendarView mCalendarView;
-    private  static final String TAG = "CalendarActivity";
-    private  GregorianCalendar selected;
+    private static final String TAG = "CalendarActivity";
+    private GregorianCalendar selected;
     private TextView dateText;
-
+    private FloatingActionButton addEventButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Calendar");
 
         dateText = findViewById(R.id.dateText);
         selected = new GregorianCalendar();
@@ -50,10 +55,21 @@ public class CalendarActivity extends AppCompatActivity {
                 //Intent intent = new Intent(CalendarActivity.this,MainActivity.class);
                 //intent.putExtra("date",date);
                 //startActivity(intent);
-
             }
         });
 
+        addEventButton = findViewById(R.id.addEventButton);
+        addEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CalendarActivity.this,AddEventActivity.class);
+                String sendDate = "" + selected.get(Calendar.MONTH)
+                        + " " + selected.get(Calendar.DAY_OF_MONTH)
+                        + " " + selected.get(Calendar.YEAR);
+                intent.putExtra("date", sendDate);
+                startActivity(intent);
+            }
+        });
 
     }
 }
