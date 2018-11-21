@@ -6,4 +6,29 @@
     <string name="textView_haveAccount">Don\'t have an account?</string>
     <string name="textView_signUp">Sign up!</string>
     <string name="textView_policies">Read our privacy policy and user agreement.</string>
+
+
+
+
+    <!-- Search Event Activity -->
+    <string name="titleSearch">Search For Events</string>
+    <string name="dateFromSearch">Date From</string>
+    <string name="dateToSearch">Date To</string>
+    <string name="categorySearch">Category</string>
+    <string name="switchTitle">Multi Day Search</string>
+
+    <string name="dateFormatSearch">dd mm yyyy</string>
+    <string name="eventsTitle">Events:</string>
+
+    <string-array name="categorySpinnerSearch">
+        <item>All</item>
+        <item>School</item>
+        <item>Work</item>
+        <item>Personal</item>
+        <item>Family</item>
+    </string-array>
+
+
+
+
 </resources>
