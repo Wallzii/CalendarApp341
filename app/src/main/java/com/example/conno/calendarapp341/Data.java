@@ -17,7 +17,7 @@ import java.util.GregorianCalendar;
 public class Data{
 
     Context context;
-    String fileName = "data6.txt";
+    String fileName = "data.txt";
     ArrayList <Event> events = new ArrayList <>();
 
     public Data(Context context){
@@ -29,7 +29,6 @@ public class Data{
     public void writeData(){
 
             try{
-
                 File file = new File(fileName);
                 boolean deleted = file.delete();
                 Log.d("file", "File deleted?: " + deleted);

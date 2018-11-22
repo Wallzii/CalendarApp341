@@ -25,5 +25,3 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
-
-//making change to my branch

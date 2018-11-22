@@ -1,7 +1,6 @@
 package com.example.conno.calendarapp341;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.Comparator;
 import java.util.Date;
@@ -20,12 +19,14 @@ public class Event implements Comparable{
 
     public Event(String [] e){
         date = new GregorianCalendar(Integer.parseInt(e[0]), Integer.parseInt(e[1]), Integer.parseInt(e[2]), Integer.parseInt(e[3]),Integer.parseInt(e[4]));
-        endTime = e[5];
-        TAG = e[6];
-        eventName = e[7];
-        desc = e[8];
-        location = e[9];
+        TAG = e[5];
+        eventName = e[6];
+        desc = e[7];
+        location = e[8];
     }
+
+
+
 
     @Override
     public int compareTo(@NonNull Object o) {
@@ -36,12 +37,6 @@ public class Event implements Comparable{
 
         return result;
     }
-
-    public void toLogString(){
-        Log.d("toString", this.getDate().toString());
-    }
-
-
 
 
     //Setters and getters
