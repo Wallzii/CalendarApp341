@@ -32,7 +32,7 @@ public class MainMenu extends AppCompatActivity {
                 case R.id.nav_piechart:
                     break;
                 case R.id.nav_group:
-                    break;
+                    intent = new Intent(MainMenu.this,InviteSMS.class);
                 case R.id.nav_calender:
                     intent = new Intent(MainMenu.this,CalendarActivity.class);
                     startActivity(intent);

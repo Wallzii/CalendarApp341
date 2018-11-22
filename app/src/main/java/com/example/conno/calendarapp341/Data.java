@@ -24,7 +24,6 @@ public class Data{
     }
 
 
-
     public void writeData(){
 
             try{
@@ -143,5 +142,6 @@ public class Data{
 
         return eventsRange;
     }
+
 
 }
