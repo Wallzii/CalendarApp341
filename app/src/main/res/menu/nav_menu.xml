@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_piechart"
+        android:icon="@drawable/ic_pie_chart_black_24dp"
+        android:title="@string/title_piechart"
+        />
+    <item
+        android:id="@+id/nav_calender"
+        android:icon="@drawable/ic_date_range_black_24dp"
+        android:title="@string/title_calender"
+        />
+    <item
+        android:id="@+id/nav_group"
+        android:icon="@drawable/ic_group_black_24dp"
+        android:title="@string/title_group"
+        />
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_search"
+        />
+</menu>
