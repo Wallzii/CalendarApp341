@@ -20,6 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".CalendarActivity" />
+        <activity android:name=".AddEventActivity" />
+        <activity android:name=".InviteSMS"></activity>
     </application>
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
 </manifest>
