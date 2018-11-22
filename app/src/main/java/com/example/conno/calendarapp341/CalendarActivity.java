@@ -67,6 +67,7 @@ public class CalendarActivity extends AppCompatActivity {
                         + " " + selected.get(Calendar.DAY_OF_MONTH)
                         + " " + selected.get(Calendar.YEAR);
                 intent.putExtra("date", sendDate);
+                //TODO
                 startActivity(intent);
             }
         });
