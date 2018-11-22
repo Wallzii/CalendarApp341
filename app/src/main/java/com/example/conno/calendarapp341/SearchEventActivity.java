@@ -90,7 +90,7 @@ public class SearchEventActivity extends AppCompatActivity {
         bottom_Nav = findViewById(R.id.bottom_nav_search);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
         Menu menu = bottom_Nav.getMenu();
-        MenuItem menuItem = menu.getItem(1);
+        MenuItem menuItem = menu.getItem(3);
         menuItem.setChecked(true);
 
     }
