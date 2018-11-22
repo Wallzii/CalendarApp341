@@ -26,21 +26,19 @@ public class MainMenu extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            Fragment selectedFragment = null;
+
             switch (menuItem.getItemId()) {
 
+                case R.id.nav_piechart:
+                    break;
                 case R.id.nav_group:
                     break;
                 case R.id.nav_calender:
                     intent = new Intent(MainMenu.this,CalendarActivity.class);
                     startActivity(intent);
                     break;
-                    /*case R.id.nav_search:
-                    intent = new Intent(CalendarActivity.this,SearchEventActivity.class);
-                    startActivity(intent);
-                    break;*/
             }
-            return true;
+            return false;
         }
     };
 }

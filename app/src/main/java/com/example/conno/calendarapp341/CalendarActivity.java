@@ -42,7 +42,6 @@ public class CalendarActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Calendar");
 
-
         dateText = findViewById(R.id.dateText);
         selected = new GregorianCalendar();
         String dateDisplay = "" + new DateFormatSymbols().getMonths()[selected.get(Calendar.MONTH)]
@@ -79,26 +78,28 @@ public class CalendarActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        bottom_Nav = findViewById(R.id.bottom_nav);
+        bottom_Nav = findViewById(R.id.bottom_nav_calender);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
     }
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
             switch (menuItem.getItemId()) {
+
                 case R.id.nav_piechart:
                     intent = new Intent(CalendarActivity.this,MainMenu.class);
                     startActivity(intent);
                     break;
                 case R.id.nav_group:
                     break;
-                /*case R.id.nav_search:
-                    intent = new Intent(CalendarActivity.this,SearchEventActivity.class);
-                    startActivity(intent);
-                    break;*/
+                case R.id.nav_calender:
+                    break;
             }
-            return true;
+            return false;
         }
     };
+
+
 }
 
