@@ -68,6 +68,7 @@ public class CalendarActivity extends AppCompatActivity {
                         + " " + selected.get(Calendar.YEAR);
                 intent.putExtra("date", sendDate);
                 //TODO
+                //startActivityForResult(intent, );
                 startActivity(intent);
             }
         });
