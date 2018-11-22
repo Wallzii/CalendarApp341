@@ -18,7 +18,7 @@ public class Event implements Comparable{
     private String location = "";
 
     public Event(String [] e){
-        date = new GregorianCalendar(Integer.parseInt(e[0]), Integer.parseInt(e[1]), Integer.parseInt(e[2]), Integer.parseInt(e[3]),Integer.parseInt(e[4]));
+            date = new GregorianCalendar(Integer.parseInt(e[0]), Integer.parseInt(e[1]), Integer.parseInt(e[2]), Integer.parseInt(e[3]),Integer.parseInt(e[4]));
         TAG = e[5];
         eventName = e[6];
         desc = e[7];

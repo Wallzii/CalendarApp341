@@ -13,7 +13,7 @@
     <string name="categorySearch">Category</string>
     <string name="switchTitle">Multi Day Search</string>
 
-    <string name="dateFormatSearch">dd mm yyyy</string>
+    <string name="dateFormatSearch">dd/mm/yyyy</string>
     <string name="eventsTitle">Events:</string>
     <string name="multi_date_search">Multi Date Search</string>
     <string name="single">Single</string>
