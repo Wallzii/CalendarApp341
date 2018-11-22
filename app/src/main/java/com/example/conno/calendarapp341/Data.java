@@ -17,7 +17,7 @@ import java.util.GregorianCalendar;
 public class Data{
 
     Context context;
-    String fileName = "data7.txt";
+    String fileName = "data.txt";
     ArrayList <Event> events = new ArrayList <>();
 
     public Data(Context context){
@@ -27,13 +27,12 @@ public class Data{
 
 
     public void writeData(){
+        File file = new File(fileName);
+        long filelength = file.length();
 
-            try{
-                File file = new File(fileName);
-                boolean deleted = file.delete();
-                Log.d("file", "File deleted?: " + deleted);
+        if (filelength == 0) {
 
-
+            try {
                 // Format for data.txt that holds event information.
                 // Year, Month, dayOfMonth, StartTime,EndTime,Tag,Title,Description,Location
 
@@ -47,7 +46,8 @@ public class Data{
                         "2018,11,25,9,0,10:00,School,Study, Study for 341 test, UBC Okanagan campus\n" +
                         "2018,11,39,9,0,10:00,Work,Study, Study for 341 test, UBC Okanagan campus\n" +
                         "2018,11,30,9,0,10:00,Family,Study, Study for 341 test, UBC Okanagan campus\n" +
-                        "2018,11,30,9,0,10:00,School,Study, Study for 341 test, UBC Okanagan campus\n";;
+                        "2018,11,30,9,0,10:00,School,Study, Study for 341 test, UBC Okanagan campus\n";
+                ;
 
                 //Writing to file
                 FileOutputStream outputStream;
@@ -55,9 +55,12 @@ public class Data{
                 outputStream.write(defaultEvents.getBytes());
                 outputStream.close();
 
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
+        }else{
+            Log.d("file", "File already exists");
+        }
     }
 
     public void loadEvents() {
