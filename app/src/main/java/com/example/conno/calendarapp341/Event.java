@@ -2,6 +2,7 @@ package com.example.conno.calendarapp341;
 
 import android.support.annotation.NonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -18,11 +19,12 @@ public class Event implements Comparable{
     private String location = "";
 
     public Event(String [] e){
-        date = new GregorianCalendar(Integer.parseInt(e[0]), Integer.parseInt(e[1]), Integer.parseInt(e[2]), Integer.parseInt(e[3]),Integer.parseInt(e[4]));
-        TAG = e[5];
-        eventName = e[6];
-        desc = e[7];
-        location = e[8];
+        date = new GregorianCalendar(Integer.parseInt(e[0]), Integer.parseInt(e[1]) - 1, Integer.parseInt(e[2]), Integer.parseInt(e[3]),Integer.parseInt(e[4]));
+        endTime = e[5];
+        TAG = e[6];
+        eventName = e[7];
+        desc = e[8];
+        location = e[9];
     }
 
 
@@ -75,5 +77,19 @@ public class Event implements Comparable{
     }
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        String testDate = dateFormat.format(date.getTime());
+        return "Event{" +
+                "date=" + testDate +
+                "', endTime='" + endTime +
+                "', TAG='" + TAG +
+                "', eventName='" + eventName +
+                "', desc='" + desc +
+                "', location='" + location +
+                '}';
     }
 }
