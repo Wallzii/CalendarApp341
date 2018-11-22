@@ -82,6 +82,9 @@ public class CalendarActivity extends AppCompatActivity {
         });
         bottom_Nav = findViewById(R.id.bottom_nav_calender);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
+        Menu menu = bottom_Nav.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
         @Override
@@ -96,6 +99,10 @@ public class CalendarActivity extends AppCompatActivity {
                 case R.id.nav_group:
                     break;
                 case R.id.nav_calender:
+                    break;
+                case R.id.nav_search:
+                    intent = new Intent(CalendarActivity.this,SearchEventActivity.class);
+                    startActivity(intent);
                     break;
             }
             return false;
