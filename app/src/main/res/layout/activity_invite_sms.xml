@@ -6,4 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".InviteSMS">
 
+    <EditText
+        android:id="@+id/editText_recipientPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/editText_recipientNumber"
+        android:inputType="phone"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_phoneNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView_phoneNumber"
+        app:layout_constraintTop_toTopOf="@+id/textView_phoneNumber" />
+
+    <TextView
+        android:id="@+id/textView_phoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/textView_phoneNumber"
+        app:layout_constraintEnd_toStartOf="@+id/editText_recipientPhoneNumber"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_sendSMS"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/button_sendSMS"
+        android:onClick="buttonSensSMS"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_testData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/editText_testData"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_testData"
+        app:layout_constraintEnd_toEndOf="@+id/editText_recipientPhoneNumber"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView_testData"
+        app:layout_constraintStart_toStartOf="@+id/editText_recipientPhoneNumber"
+        app:layout_constraintTop_toTopOf="@+id/textView_testData" />
+
+    <TextView
+        android:id="@+id/textView_testData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/textView_testData"
+        app:layout_constraintEnd_toStartOf="@+id/editText_testData"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_phoneNumber" />
 </android.support.constraint.ConstraintLayout>

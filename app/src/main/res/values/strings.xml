@@ -6,4 +6,9 @@
     <string name="textView_haveAccount">Don\'t have an account?</string>
     <string name="textView_signUp">Sign up!</string>
     <string name="textView_policies">Read our privacy policy and user agreement.</string>
+    <string name="editText_recipientNumber">Recipient\'s phone number</string>
+    <string name="textView_phoneNumber">Phone Number:</string>
+    <string name="button_sendSMS">Send</string>
+    <string name="editText_testData">Enter test data</string>
+    <string name="textView_testData">Test Data:</string>
 </resources>
