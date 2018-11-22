@@ -105,9 +105,11 @@ public class SearchEventActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.nav_group:
+                    intent = new Intent(SearchEventActivity.this,InviteSMS.class);
+                    startActivity(intent);
                     break;
                 case R.id.nav_calender:
-                    intent = new Intent(SearchEventActivity.this,CalendarActivity.class);
+                    intent = new Intent(SearchEventActivity.this, CalendarActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.nav_search:
