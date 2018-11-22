@@ -12,12 +12,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormatSymbols;
@@ -32,7 +37,8 @@ public class CalendarActivity extends AppCompatActivity {
     private FloatingActionButton addEventButton;
     private BottomNavigationView bottom_Nav;
     private Intent intent;
-
+    private ListView eventList;
+    private ArrayList<Event> eventData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,19 @@ public class CalendarActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Calendar");
+
+        //TODO ListView init
+        eventList = findViewById(R.id.eventList);
+        fillEventList();
+        eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
 
         dateText = findViewById(R.id.dateText);
         selected = new GregorianCalendar();
@@ -58,7 +77,7 @@ public class CalendarActivity extends AppCompatActivity {
                         + " " + selected.get(Calendar.DAY_OF_MONTH)
                         + " " + selected.get(Calendar.YEAR);
                 dateText.setText(dateDisplay);
-
+                //TODO show events in ListView for given day
                 //Log.d(TAG, "onSelectedDayChange: yyyy/mm/dd:" + date);
                 //Intent intent = new Intent(CalendarActivity.this,MainActivity.class);
                 //intent.putExtra("date",date);
@@ -108,7 +127,17 @@ public class CalendarActivity extends AppCompatActivity {
             return false;
         }
     };
+    private void fillEventList(){
+        //TODO Fill event list with clickable entries
+        //final ArrayAdapter adapter = new ArrayAdapter(this,
+        //        android.R.layout.simple_list_item_1, eventData);
+        //eventList.setAdapter(adapter);
 
+
+    }
+    private void getEventList(){
+        //TODO
+    }
 
 }
 
