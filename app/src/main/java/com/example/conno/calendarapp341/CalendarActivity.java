@@ -42,7 +42,6 @@ public class CalendarActivity extends AppCompatActivity {
     private Intent intent;
     private ListView eventList;
     private ArrayList<Event> eventData;
-    private ArrayList<View> eventView;
     private Data data;
     private ArrayList<Event> selectedData;
 
@@ -51,23 +50,9 @@ public class CalendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Calendar");
-
-        //TODO ListView init
-        eventView = new ArrayList<>();
-        data = new Data(CalendarActivity.this);
-        eventList = findViewById(R.id.eventList);
-        fillEventList();
-        eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
 
         dateText = findViewById(R.id.dateText);
         selected = new GregorianCalendar();
@@ -87,6 +72,7 @@ public class CalendarActivity extends AppCompatActivity {
                 dateText.setText(dateDisplay);
                 //TODO show events in ListView for given day
                 fillEventList();
+
                 //Log.d(TAG, "onSelectedDayChange: yyyy/mm/dd:" + date);
                 //Intent intent = new Intent(CalendarActivity.this,MainActivity.class);
                 //intent.putExtra("date",date);
@@ -112,6 +98,22 @@ public class CalendarActivity extends AppCompatActivity {
         Menu menu = bottom_Nav.getMenu();
         MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
+
+
+        //TODO ListView init
+        data = new Data(CalendarActivity.this);
+        //data.writeData();
+        eventList = findViewById(R.id.eventList);
+        fillEventList();
+        eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
         @Override
@@ -143,16 +145,18 @@ public class CalendarActivity extends AppCompatActivity {
         getEventData();
         selectedData = new ArrayList<>();
         for(Event event : eventData){
-            if(selected.getTime().compareTo(event.getDate().getTime())==0){
+            if(selected.get(Calendar.YEAR)==event.getDate().get(Calendar.YEAR)&&
+                    selected.get(Calendar.MONTH)==event.getDate().get(Calendar.YEAR)&&
+                    selected.get(Calendar.DAY_OF_MONTH)==event.getDate().get(Calendar.DAY_OF_MONTH)){
                 selectedData.add(event);
             }
         }
         //TODO Sort selectedData by start time
         EventAdapter adapter = new EventAdapter(this, selectedData);
         eventList.setAdapter(adapter);
-        //for(int i = 0 ; i < selectedData.size() ; i++ ){
-        //    adapter.getView(i, , eventList);
-        //}
+        for(int i = 0 ; i < selectedData.size() ; i++ ){
+            adapter.getView(i,null, eventList);
+        }
         //final ArrayAdapter adapter = new ArrayAdapter(this,
         //        android.R.layout.simple_list_item_1, eventData);
         //eventList.setAdapter(adapter);
