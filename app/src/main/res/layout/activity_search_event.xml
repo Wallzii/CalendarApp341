@@ -6,9 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".SearchEventActivity">
 
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_nav_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/nav_menu"
+        android:background="?android:attr/windowBackground"/>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="550dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav_search">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,20 +34,20 @@
                 android:id="@+id/searchTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/titleSearch"
                 android:gravity="center"
-                android:textSize="30sp"/>
+                android:text="@string/titleSearch"
+                android:textSize="30sp" />
 
             <Switch
                 android:id="@+id/switchRagne"
                 android:layout_width="wrap_content"
                 android:layout_height="47dp"
+                android:layout_gravity="center"
                 android:checked="false"
                 android:gravity="center"
                 android:text="@string/multi_date_search"
                 tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="319dp"
-                android:layout_gravity="center"/>
+                tools:layout_editor_absoluteY="319dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,7 +69,11 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="@string/dateFormatSearch"
+
                     android:inputType="date" />
+
+                  
+
             </LinearLayout>
 
             <LinearLayout
@@ -79,7 +98,11 @@
                     android:layout_weight="2"
                     android:ems="10"
                     android:hint="@string/dateFormatSearch"
+
                     android:inputType="date" />
+
+                    
+
             </LinearLayout>
 
             <LinearLayout
@@ -98,7 +121,7 @@
                     android:id="@+id/categorySpinnerSearch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="1
                     android:entries="@array/categorySpinnerSearch"
                     android:text="@string/category" />
 
@@ -129,14 +152,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/eventsTitle"
-                android:textSize="25sp"/>
+                android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/displayEventsSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/textview"
-                />
+                android:text="@string/textview" />
 
         </LinearLayout>
     </ScrollView>
