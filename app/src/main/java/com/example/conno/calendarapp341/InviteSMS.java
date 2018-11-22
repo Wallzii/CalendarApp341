@@ -18,12 +18,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class InviteSMS extends AppCompatActivity {
+
     private BottomNavigationView bottom_Nav;
     private Intent intent;
+    private Data data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_sms);
+
+        data = new Data(this);
+        data.writeData();
+        data.loadEvents();
 
         // Check appropriate permissions are enabled.
         checkPermissions();
@@ -51,6 +58,8 @@ public class InviteSMS extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.nav_search:
+                    intent = new Intent(InviteSMS.this,SearchEventActivity.class);
+                    startActivity(intent);
                     break;
             }
             return false;
@@ -77,7 +86,8 @@ public class InviteSMS extends AppCompatActivity {
         String phoneNumber = phoneNumberET.getText().toString();
         String textData = textDataET.getText().toString();
 
-        sendSMS(phoneNumber, textData);
+//        sendSMS(phoneNumber, textData);
+        sendSMS(phoneNumber, data.events.get(0).toString());
 //        sendSMS("12503170864", "TESTING!");
     }
 

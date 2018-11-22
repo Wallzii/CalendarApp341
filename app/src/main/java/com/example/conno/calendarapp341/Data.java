@@ -25,7 +25,6 @@ public class Data{
     }
 
 
-
     public void writeData(){
         File file = new File(fileName);
         long filelength = file.length();
@@ -152,5 +151,6 @@ public class Data{
 
         return eventsRange;
     }
+
 
 }
