@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+
 public class InviteSMS extends AppCompatActivity {
 
     private BottomNavigationView bottom_Nav;
@@ -84,8 +86,17 @@ public class InviteSMS extends AppCompatActivity {
         String phoneNumber = phoneNumberET.getText().toString();
         String textData = textDataET.getText().toString();
 
+//        String testData = data.events.get(0).getDesc();
+        String testData = data.events.get(0).toString();
+        String testData2 = data.events.get(0).getTAG();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        String testData3 = dateFormat.format(data.events.get(0).getDate().getTime());
+
 //        sendSMS(phoneNumber, textData);
-        sendSMS(phoneNumber, data.events.get(0).toString());
+        sendSMS(phoneNumber, testData);
+//        sendSMS(phoneNumber, data.events.get(0).toString());
+//        System.out.println("****************************** DATA: " + data.events.get(0).toString());
 //        sendSMS("12503170864", "TESTING!");
     }
 
