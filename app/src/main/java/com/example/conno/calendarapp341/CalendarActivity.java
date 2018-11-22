@@ -116,6 +116,8 @@ public class CalendarActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.nav_group:
+                    intent = new Intent(CalendarActivity.this,InviteSMS.class);
+                    startActivity(intent);
                     break;
                 case R.id.nav_calender:
                     break;
