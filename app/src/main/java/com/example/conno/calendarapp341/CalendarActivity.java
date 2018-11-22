@@ -1,11 +1,16 @@
 package com.example.conno.calendarapp341;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -25,6 +30,9 @@ public class CalendarActivity extends AppCompatActivity {
     private GregorianCalendar selected;
     private TextView dateText;
     private FloatingActionButton addEventButton;
+    private BottomNavigationView bottom_Nav;
+    private Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +80,28 @@ public class CalendarActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        bottom_Nav = findViewById(R.id.bottom_nav_calender);
+        bottom_Nav.setOnNavigationItemSelectedListener(navListener);
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+            switch (menuItem.getItemId()) {
+
+                case R.id.nav_piechart:
+                    intent = new Intent(CalendarActivity.this,MainMenu.class);
+                    startActivity(intent);
+                    break;
+                case R.id.nav_group:
+                    break;
+                case R.id.nav_calender:
+                    break;
+            }
+            return false;
+        }
+    };
+
+
 }
+

@@ -6,4 +6,38 @@
     <string name="textView_haveAccount">Don\'t have an account?</string>
     <string name="textView_signUp">Sign up!</string>
     <string name="textView_policies">Read our privacy policy and user agreement.</string>
+    <!-- Search Event Activity -->
+    <string name="titleSearch">Search For Events</string>
+    <string name="dateFromSearch">Date From</string>
+    <string name="dateToSearch">Date To</string>
+    <string name="categorySearch">Category</string>
+    <string name="switchTitle">Multi Day Search</string>
+
+    <string name="dateFormatSearch">dd mm yyyy</string>
+    <string name="eventsTitle">Events:</string>
+    <string name="multi_date_search">Multi Date Search</string>
+    <string name="single">Single</string>
+    <string name="category">Category</string>
+    <string name="search">Search</string>
+    <string name="doneSearch">DONE</string>
+    <string name="textview">TextView</string>
+
+    <string-array name="categorySpinnerSearch">
+        <item>All</item>
+        <item>School</item>
+        <item>Work</item>
+        <item>Personal</item>
+        <item>Family</item>
+    </string-array>
+
+    <string name="editText_recipientNumber">Recipient\'s phone number</string>
+    <string name="textView_phoneNumber">Phone Number:</string>
+    <string name="button_sendSMS">Send</string>
+    <string name="editText_testData">Enter test data</string>
+    <string name="textView_testData">Test Data:</string>
+    <string name="title_piechart">Pie Chart</string>
+    <string name="title_calender">Calender</string>
+    <string name="title_group">Group</string>
+    <string name="title_search">Search</string>
+
 </resources>
