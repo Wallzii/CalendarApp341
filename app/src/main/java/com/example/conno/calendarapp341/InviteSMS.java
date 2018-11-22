@@ -58,6 +58,8 @@ public class InviteSMS extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.nav_search:
+                    intent = new Intent(InviteSMS.this,SearchEventActivity.class);
+                    startActivity(intent);
                     break;
             }
             return false;
