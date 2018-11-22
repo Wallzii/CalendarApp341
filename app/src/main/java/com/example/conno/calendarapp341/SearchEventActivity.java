@@ -89,111 +89,114 @@ public class SearchEventActivity extends AppCompatActivity {
         requestEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(dateFrom.getText().toString().contains("/")){
-                    Toast.makeText(SearchEventActivity.this, "Please separate with spaces", Toast.LENGTH_SHORT).show();
-                }
-
-                String eventsDisplay = "";
-
-                ArrayList<Event> events = d.events;
-
-                //Converting input from EditText views
-                DateFormat df = new SimpleDateFormat("dd MM yyyy");
-                Date dateFirst = null;
-                Date dateSecond = null;
+                if (!dateFrom.getText().toString().matches("\\d{2}\\/\\d{2}\\/\\d{4}") && (!dateTo.getText().toString().matches("\\d{2}\\/\\d{2}\\/\\d{4}") || dateTo.getText().toString() == null )) {
+                    Toast.makeText(SearchEventActivity.this, "Please use the suggested format", Toast.LENGTH_SHORT).show();
+                } else {
 
 
-                if(rangeBoolean){
-                try {
-                    dateFirst = df.parse(dateFrom.getText().toString());
-                    dateSecond = df.parse(dateTo.getText().toString());
-                }catch(Exception e){
-                    Log.d("error", "parse error");
-                }
+                    String eventsDisplay = "";
 
-                GregorianCalendar cal1 = new GregorianCalendar();
-                GregorianCalendar cal2 = new GregorianCalendar();
-                cal1.setTime(dateFirst);
-                cal2.setTime(dateSecond);
+                    ArrayList<Event> events = d.events;
 
-                Log.d("display dates", cal1.toString());
-                Log.d("display dates", cal2.toString());
+                    //Converting input from EditText views
+                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                    Date dateFirst = null;
+                    Date dateSecond = null;
 
-                    for(Event e: events){
-                        Log.d("search", "adding event to string");
-                        String currentEvent = "";
-                        if(e.getDate().compareTo(cal1) > -1 && e.getDate().compareTo(cal2) < 1 && (calendarCategory.getSelectedItem().toString().equals("All") || calendarCategory.getSelectedItem().toString().equals(e.getTAG()))){
-                            currentEvent += "Title: " + e.getEventName() +"\n" +
-                                    "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + e.getDate().get(Calendar.MONTH) + "/" + e.getDate().get(Calendar.YEAR) +  "\n" +
-                                    "End time: " + e.getEndTime() + "\n" +
-                                    "Category: " + e.getTAG() + "\n" +
-                                    "Location: " + e.getLocation() + "\n" +
-                                    "Description: " + e.getDesc() + "\n\n";
 
-                            Log.d("search", currentEvent);
+                    if (rangeBoolean) {
+                        try {
+                            dateFirst = df.parse(dateFrom.getText().toString());
+                            dateSecond = df.parse(dateTo.getText().toString());
+                        } catch (Exception e) {
+                            Log.d("error", "parse error");
+                        }
 
-                            eventsDisplay += currentEvent;
+                        GregorianCalendar cal1 = new GregorianCalendar();
+                        GregorianCalendar cal2 = new GregorianCalendar();
+                        cal1.setTime(dateFirst);
+                        cal2.setTime(dateSecond);
 
+                        Log.d("display dates", cal1.toString());
+                        Log.d("display dates", cal2.toString());
+
+                        for (Event e : events) {
+                            Log.d("search", "adding event to string");
+                            String currentEvent = "";
+                            if (e.getDate().compareTo(cal1) > -1 && e.getDate().compareTo(cal2) < 1 && (calendarCategory.getSelectedItem().toString().equals("All") || calendarCategory.getSelectedItem().toString().equals(e.getTAG()))) {
+                                currentEvent += "Title: " + e.getEventName() + "\n" +
+                                        "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + e.getDate().get(Calendar.MONTH) + "/" + e.getDate().get(Calendar.YEAR) + "\n" +
+                                        "End time: " + e.getEndTime() + "\n" +
+                                        "Category: " + e.getTAG() + "\n" +
+                                        "Location: " + e.getLocation() + "\n" +
+                                        "Description: " + e.getDesc() + "\n\n";
+
+                                Log.d("search", currentEvent);
+
+                                eventsDisplay += currentEvent;
+
+                            }
+                        }
+
+
+                    } else {
+                        try {
+                            dateFirst = df.parse(dateFrom.getText().toString());
+                        } catch (Exception e) {
+                            Log.d("error", "parse error");
+                        }
+                        //making second date equal to first date
+                        dateSecond = dateFirst;
+
+                        //Decrementing dateFirst,
+                        Calendar c = Calendar.getInstance();
+                        c.setTime(dateFirst);
+                        c.add(Calendar.DATE, -1);
+                        dateFirst = c.getTime();
+
+                        //incrementing dateSecond
+                        c.setTime(dateSecond);
+                        c.add(Calendar.DATE, 1);
+                        dateSecond = c.getTime();
+
+                        GregorianCalendar cal1 = new GregorianCalendar();
+                        GregorianCalendar cal2 = new GregorianCalendar();
+                        cal1.setTime(dateFirst);
+                        cal2.setTime(dateSecond);
+
+                        Log.d("display dates", cal1.toString());
+                        Log.d("display dates", cal2.toString());
+
+                        for (Event e : events) {
+
+                            String currentEvent = "";
+
+                            if (e.getDate().compareTo(cal1) > -1 && e.getDate().compareTo(cal2) < 1 && (calendarCategory.getSelectedItem().toString().equals("All") || calendarCategory.getSelectedItem().toString().equals(e.getTAG()))) {
+                                currentEvent += "Title: " + e.getEventName() + "\n" +
+                                        "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + e.getDate().get(Calendar.MONTH) + "/" + e.getDate().get(Calendar.YEAR) + "\n" +
+                                        "End time: " + e.getEndTime() + "\n" +
+                                        "Category: " + e.getTAG() + "\n" +
+                                        "Location: " + e.getLocation() + "\n" +
+                                        "Description: " + e.getDesc() + "\n\n";
+
+                                Log.d("search", currentEvent);
+
+                                eventsDisplay += currentEvent;
+                            }
                         }
                     }
 
 
-                }else{
-                    try {
-                        dateFirst = df.parse(dateFrom.getText().toString());
-                    }catch(Exception e){
-                        Log.d("error", "parse error");
+                    if (eventsDisplay.length() <= "Events: \n".length()) {
+                        eventsDisplay = "No events to display";
                     }
-                    //making second date equal to first date
-                    dateSecond = dateFirst;
 
-                    //Decrementing dateFirst,
-                    Calendar c = Calendar.getInstance();
-                    c.setTime(dateFirst);
-                    c.add(Calendar.DATE, -1);
-                    dateFirst = c.getTime();
+                    displayEvents.setText(eventsDisplay);
+                    displayEvents.setVisibility(View.VISIBLE);
+                    eventsTitle.setVisibility(View.VISIBLE);
 
-                    //incrementing dateSecond
-                    c.setTime(dateSecond);
-                    c.add(Calendar.DATE, 1);
-                    dateSecond = c.getTime();
-
-                    GregorianCalendar cal1 = new GregorianCalendar();
-                    GregorianCalendar cal2 = new GregorianCalendar();
-                    cal1.setTime(dateFirst);
-                    cal2.setTime(dateSecond);
-
-                    Log.d("display dates", cal1.toString());
-                    Log.d("display dates", cal2.toString());
-
-                    for(Event e: events){
-
-                        String currentEvent = "";
-
-                        if(e.getDate().compareTo(cal1) > -1 && e.getDate().compareTo(cal2) < 1 && (calendarCategory.getSelectedItem().toString().equals("All") || calendarCategory.getSelectedItem().toString().equals(e.getTAG()))){
-                            currentEvent += "Title: " + e.getEventName() +"\n" +
-                                    "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + e.getDate().get(Calendar.MONTH) + "/" + e.getDate().get(Calendar.YEAR) +  "\n" +
-                                    "End time: " + e.getEndTime() + "\n" +
-                                    "Category: " + e.getTAG() + "\n" +
-                                    "Location: " + e.getLocation() + "\n" +
-                                    "Description: " + e.getDesc() + "\n\n";
-
-                            Log.d("search", currentEvent);
-
-                            eventsDisplay += currentEvent;
-                        }
-                    }
+                    Toast.makeText(SearchEventActivity.this, "Events Requested", Toast.LENGTH_SHORT).show();
                 }
-
-                if(eventsDisplay.length() <= "Events: \n".length()){
-                    eventsDisplay = "No events to display";
-                }
-
-                displayEvents.setText(eventsDisplay);
-                displayEvents.setVisibility(View.VISIBLE);
-                eventsTitle.setVisibility(View.VISIBLE);
-
-                Toast.makeText(SearchEventActivity.this, "Events Requested", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -20,6 +20,7 @@
         <activity android:name=".CalendarActivity" />
         <activity android:name=".AddEventActivity" />
         <activity android:name=".InviteSMS"></activity>
+        <activity android:name=".SearchEventActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.SEND_SMS" />

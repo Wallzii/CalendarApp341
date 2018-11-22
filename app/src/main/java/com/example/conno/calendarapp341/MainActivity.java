@@ -14,11 +14,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Button butcalendar = findViewById(R.id.butcalendar);
+        Button butSearch = findViewById(R.id.butSearch);
+
         butcalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,CalendarActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        butSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SearchEventActivity.class);
                 startActivity(intent);
             }
         });
