@@ -29,8 +29,10 @@ public class Data{
     public void writeData(){
 
             try{
+
                 File file = new File(fileName);
-                file.delete();
+                boolean deleted = file.delete();
+                Log.d("file", "File deleted?: " + deleted);
 
 
                 // Format for data.txt that holds event information.

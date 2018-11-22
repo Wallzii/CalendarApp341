@@ -116,7 +116,8 @@ public class SearchEventActivity extends AppCompatActivity {
                 cal1.setTime(dateFirst);
                 cal2.setTime(dateSecond);
 
-
+                Log.d("display dates", cal1.toString());
+                Log.d("display dates", cal2.toString());
 
                     for(Event e: events){
                         Log.d("search", "adding event to string");
@@ -166,8 +167,9 @@ public class SearchEventActivity extends AppCompatActivity {
                     Log.d("display dates", cal2.toString());
 
                     for(Event e: events){
-                        Log.d("search", "adding event to string");
+
                         String currentEvent = "";
+
                         if(e.getDate().compareTo(cal1) > -1 && e.getDate().compareTo(cal2) < 1 && (calendarCategory.getSelectedItem().toString().equals("All") || calendarCategory.getSelectedItem().toString().equals(e.getTAG()))){
                             currentEvent += "Title: " + e.getEventName() +"\n" +
                                     "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + e.getDate().get(Calendar.MONTH) + "/" + e.getDate().get(Calendar.YEAR) +  "\n" +
