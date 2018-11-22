@@ -71,9 +71,9 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CalendarActivity.this,AddEventActivity.class);
-                String sendDate = "" + selected.get(Calendar.MONTH)
-                        + " " + selected.get(Calendar.DAY_OF_MONTH)
-                        + " " + selected.get(Calendar.YEAR);
+                String sendDate = "" + selected.get(Calendar.DAY_OF_MONTH)
+                        + "/" + (selected.get(Calendar.MONTH)+1)
+                        + "/" + selected.get(Calendar.YEAR);
                 intent.putExtra("date", sendDate);
                 //TODO
                 //startActivityForResult(intent, );
@@ -82,6 +82,9 @@ public class CalendarActivity extends AppCompatActivity {
         });
         bottom_Nav = findViewById(R.id.bottom_nav_calender);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
+        Menu menu = bottom_Nav.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
         @Override
@@ -94,8 +97,14 @@ public class CalendarActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.nav_group:
+                    intent = new Intent(CalendarActivity.this,InviteSMS.class);
+                    startActivity(intent);
                     break;
                 case R.id.nav_calender:
+                    break;
+                case R.id.nav_search:
+                    intent = new Intent(CalendarActivity.this,SearchEventActivity.class);
+                    startActivity(intent);
                     break;
             }
             return false;
