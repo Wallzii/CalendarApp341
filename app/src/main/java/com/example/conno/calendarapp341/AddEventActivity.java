@@ -18,10 +18,16 @@ import java.util.Calendar;
 
 public class AddEventActivity extends AppCompatActivity {
 
+    private TextView dateText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+        Intent intent = getIntent();
+        String theDate = intent.getStringExtra("date");
+        dateText = findViewById(R.id.dateText);
+        dateText.setText(theDate);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Add Event");
@@ -33,7 +39,6 @@ public class AddEventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO
                 TextView titleText = findViewById(R.id.titleText);
-                TextView dateText = findViewById(R.id.dateText);
                 TextView startText = findViewById(R.id.startText);
                 TextView endText = findViewById(R.id.endText);
                 TextView descText = findViewById(R.id.descText);
@@ -72,7 +77,7 @@ public class AddEventActivity extends AppCompatActivity {
                     //TODO testing
                     TextView test = findViewById(R.id.testt);
                     test.setText(event);
-                    //TODO implement adding to file.
+                    //TODO check that file works properly
                     try {
                         File file = new File("data.txt");
                         FileOutputStream outputStream;
@@ -86,6 +91,7 @@ public class AddEventActivity extends AppCompatActivity {
                     finish();
                     //finishActivity(22);
                 }
+                //TODO make sure not needed
                 //Intent intent = new Intent(CalendarActivity.this,AddEventActivity.class);
                 //String sendDate = "" + selected.get(Calendar.MONTH)
                 //        + " " + selected.get(Calendar.DAY_OF_MONTH)
@@ -99,9 +105,8 @@ public class AddEventActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
-                goBack();
-
+                finish();
+                //TODO make sure not needed
                 // Intent intent = new Intent(CalendarActivity.this,AddEventActivity.class);
                 //String sendDate = "" + selected.get(Calendar.MONTH)
                 //        + " " + selected.get(Calendar.DAY_OF_MONTH)
@@ -113,18 +118,15 @@ public class AddEventActivity extends AppCompatActivity {
 
 
     }
-    @Override
-    public void onBackPressed() {
-        //TODO
+    //TODO probably unnecessary code
+    //@Override
+    //public void onBackPressed() {
         //Intent mIntent = getIntent();
         //mIntent.putExtra("playState", isPlaying);
         //mIntent.putExtra("progress", seekbarProgress);
         //setResult(RESULT_OK, mIntent);
-        finish();
-    }
-    public void goBack(){
-
-    }
+    //    finish();
+    //}
 
 
 }

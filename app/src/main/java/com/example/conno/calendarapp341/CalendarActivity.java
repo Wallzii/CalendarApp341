@@ -71,9 +71,9 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CalendarActivity.this,AddEventActivity.class);
-                String sendDate = "" + selected.get(Calendar.MONTH)
-                        + " " + selected.get(Calendar.DAY_OF_MONTH)
-                        + " " + selected.get(Calendar.YEAR);
+                String sendDate = "" + selected.get(Calendar.DAY_OF_MONTH)
+                        + "/" + (selected.get(Calendar.MONTH)+1)
+                        + "/" + selected.get(Calendar.YEAR);
                 intent.putExtra("date", sendDate);
                 //TODO
                 //startActivityForResult(intent, );
