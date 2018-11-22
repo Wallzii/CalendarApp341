@@ -35,6 +35,7 @@
     <string name="button_sendSMS">Send</string>
     <string name="editText_testData">Enter test data</string>
     <string name="textView_testData">Test Data:</string>
+    <string name="button_SMS">SMS</string>
     <string name="title_piechart">Pie Chart</string>
     <string name="title_calender">Calender</string>
     <string name="title_group">Group</string>
