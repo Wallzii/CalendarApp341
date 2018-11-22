@@ -75,7 +75,7 @@ public class Data{
                 String[] attributes = line.split(",");
 
                 Event newEvent = new Event(attributes);
-                newEvent.toLogString();
+
                 events.add(newEvent);
 
                 line = br.readLine();
@@ -140,7 +140,7 @@ public class Data{
         ArrayList <Event> eventsRange = new ArrayList<>();
 
         for(Event e: events){
-            e.toLogString();
+
             if(e.getDate().compareTo(gDate1) < 1 && e.getDate().compareTo(gDate2) > -1){
                 eventsRange.add(e);
             }
