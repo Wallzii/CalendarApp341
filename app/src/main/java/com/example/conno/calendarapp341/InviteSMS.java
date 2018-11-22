@@ -51,7 +51,7 @@ public class InviteSMS extends AppCompatActivity {
         String textData = textDataET.getText().toString();
 
 //        sendSMS(phoneNumber, textData);
-        sendSMS(phoneNumber, data.events.toString());
+        sendSMS(phoneNumber, data.events.get(0).toString());
 //        sendSMS("12503170864", "TESTING!");
     }
 
