@@ -68,10 +68,10 @@ public class AddEventActivity extends AppCompatActivity {
                 }
                 else {
                     String event;
-                    event = dateText.getText().toString().substring(1+dateText.getText().toString().lastIndexOf('/'))+ ", "+
-                            dateText.getText().toString().substring(1+dateText.getText().toString().indexOf('/'), dateText.getText().toString().lastIndexOf('/'))+", "+
-                            dateText.getText().toString().substring(0, dateText.getText().toString().indexOf('/'))+", "+
-                            startText.getText().toString()+", "+endText.getText().toString()+", "+tagText.getText().toString()+", "+
+                    event = dateText.getText().toString().substring(1+dateText.getText().toString().lastIndexOf('/'))+ ","+
+                            dateText.getText().toString().substring(1+dateText.getText().toString().indexOf('/'), dateText.getText().toString().lastIndexOf('/'))+","+
+                            dateText.getText().toString().substring(0, dateText.getText().toString().indexOf('/'))+","+
+                            startText.getText().toString()+","+endText.getText().toString()+", "+tagText.getText().toString()+","+
                             titleText.getText().toString()+", "+descText.getText().toString()+", "+locText.getText().toString()+"\n";
                     // Year, Month, dayOfMonth, StartTime,EndTime,Tag,Title,Description,Location
                     //TODO testing

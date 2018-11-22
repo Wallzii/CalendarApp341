@@ -1,5 +1,6 @@
 package com.example.conno.calendarapp341;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,9 +10,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -39,6 +42,9 @@ public class CalendarActivity extends AppCompatActivity {
     private Intent intent;
     private ListView eventList;
     private ArrayList<Event> eventData;
+    private ArrayList<View> eventView;
+    private Data data;
+    private ArrayList<Event> selectedData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,8 @@ public class CalendarActivity extends AppCompatActivity {
         actionBar.setTitle("Calendar");
 
         //TODO ListView init
+        eventView = new ArrayList<>();
+        data = new Data(CalendarActivity.this);
         eventList = findViewById(R.id.eventList);
         fillEventList();
         eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,6 +86,7 @@ public class CalendarActivity extends AppCompatActivity {
                         + " " + selected.get(Calendar.YEAR);
                 dateText.setText(dateDisplay);
                 //TODO show events in ListView for given day
+                fillEventList();
                 //Log.d(TAG, "onSelectedDayChange: yyyy/mm/dd:" + date);
                 //Intent intent = new Intent(CalendarActivity.this,MainActivity.class);
                 //intent.putExtra("date",date);
@@ -95,7 +104,6 @@ public class CalendarActivity extends AppCompatActivity {
                         + "/" + selected.get(Calendar.YEAR);
                 intent.putExtra("date", sendDate);
                 //TODO
-                //startActivityForResult(intent, );
                 startActivity(intent);
             }
         });
@@ -131,15 +139,55 @@ public class CalendarActivity extends AppCompatActivity {
     };
     private void fillEventList(){
         //TODO Fill event list with clickable entries
+
+        getEventData();
+        selectedData = new ArrayList<>();
+        for(Event event : eventData){
+            if(selected.getTime().compareTo(event.getDate().getTime())==0){
+                selectedData.add(event);
+            }
+        }
+        //TODO Sort selectedData by start time
+        EventAdapter adapter = new EventAdapter(this, selectedData);
+        eventList.setAdapter(adapter);
+        //for(int i = 0 ; i < selectedData.size() ; i++ ){
+        //    adapter.getView(i, , eventList);
+        //}
         //final ArrayAdapter adapter = new ArrayAdapter(this,
         //        android.R.layout.simple_list_item_1, eventData);
         //eventList.setAdapter(adapter);
 
 
     }
-    private void getEventList(){
+    private void getEventData(){
         //TODO
+        data.loadEvents();
+        eventData = data.events;
     }
 
+}
+class EventAdapter extends ArrayAdapter<Event> {
+    public EventAdapter(Context context, ArrayList<Event> events) {
+        super(context, 0, events);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // Get the data item for this position
+        Event event = getItem(position);
+        // Check if an existing view is being reused, otherwise inflate the view
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_event, parent, false);
+        }
+        // Lookup view for data population
+        TextView eTitle = (TextView) convertView.findViewById(R.id.list_event_name);
+        TextView eTimes = (TextView) convertView.findViewById(R.id.list_event_times);
+        // Populate the data into the template view using the data object
+        eTitle.setText(event.getEventName());
+        String times = event.getDate().getTime().toString() + " - " + event.getEndTime();
+        eTimes.setText(times);
+        // Return the completed view to render on screen
+        return convertView;
+    }
 }
 
