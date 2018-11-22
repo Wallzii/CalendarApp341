@@ -24,4 +24,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    public void buttonSMS(View view) {
+        Intent intent = new Intent(MainActivity.this, InviteSMS.class);
+        startActivity(intent);
+    }
 }

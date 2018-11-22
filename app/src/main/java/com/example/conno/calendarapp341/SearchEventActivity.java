@@ -1,10 +1,14 @@
 package com.example.conno.calendarapp341;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.constraint.solver.widgets.ConstraintHorizontalLayout;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -37,7 +41,8 @@ public class SearchEventActivity extends AppCompatActivity {
     LinearLayout toDateLayout;
     TextView displayEvents;
     TextView eventsTitle;
-
+    private BottomNavigationView bottom_Nav;
+    private Intent intent;
     boolean rangeBoolean;
 
 
@@ -82,9 +87,35 @@ public class SearchEventActivity extends AppCompatActivity {
 
         onClickListenter();
 
-
+        bottom_Nav = findViewById(R.id.bottom_nav_search);
+        bottom_Nav.setOnNavigationItemSelectedListener(navListener);
+        Menu menu = bottom_Nav.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
 
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+            switch (menuItem.getItemId()) {
+
+                case R.id.nav_piechart:
+                    intent = new Intent(SearchEventActivity.this,MainMenu.class);
+                    startActivity(intent);
+                    break;
+                case R.id.nav_group:
+                    break;
+                case R.id.nav_calender:
+                    intent = new Intent(SearchEventActivity.this,CalendarActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.nav_search:
+                    break;
+            }
+            return false;
+        }
+    };
     public void onClickListenter(){
         requestEvents.setOnClickListener(new View.OnClickListener() {
             @Override
