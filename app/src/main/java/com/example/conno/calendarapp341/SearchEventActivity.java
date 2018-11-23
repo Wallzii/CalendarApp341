@@ -51,6 +51,7 @@ public class SearchEventActivity extends AppCompatActivity {
     //      Stuff I wont need later
     Data d = new Data(SearchEventActivity.this);
     ////////////////////////////////////////////////
+      
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
