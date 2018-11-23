@@ -132,7 +132,7 @@ public class SearchEventActivity extends AppCompatActivity {
                 String eventsDisplay = "";
 
                 //Things to keep track of where i am
-                int counter = 0;
+                int countLoops = 0;
                 int countEvents = 0;
                 boolean enteredSearch = false;
                 boolean addedToArray = false;
@@ -180,7 +180,7 @@ public class SearchEventActivity extends AppCompatActivity {
                         eventsDisplay += currentEvent;
 
                         Log.d("test", currentEvent);
-                        counter ++;
+                        countLoops ++;
                         if(!enteredSearch) {
                             Log.d("Search", "Search has been entered");
                             enteredSearch = true;
@@ -188,7 +188,7 @@ public class SearchEventActivity extends AppCompatActivity {
 
                     }
 
-                    Log.d("Search", "looped through " + counter + " items");
+                    Log.d("Search", "looped through " + countLoops + " items");
                     Log.d("Search", "Added " + countEvents + " events");
 
                     if (eventsDisplay.length() <= ("Events: \n").length()) {
@@ -206,7 +206,7 @@ public class SearchEventActivity extends AppCompatActivity {
                     //Converting input from EditText views
 
                     try {
-                        dateFirst = df.parse(getCorrectDate(dateFrom.getText().toString())); //sending to correct date to subtract a month from the date
+                        dateFirst = df.parse(dateFrom.getText().toString()); //sending to correct date to subtract a month from the date
                     } catch (Exception e) {
                         Log.d("error", "parse error");
                     }
@@ -234,7 +234,7 @@ public class SearchEventActivity extends AppCompatActivity {
                     Log.d("display dates", cal2.toString());
 
                     for (Event e : events) {
-
+                        countLoops++;
                         if(!enteredSearch) {
                             Log.d("Search", "Search has been entered");
                             enteredSearch = true;
@@ -243,6 +243,9 @@ public class SearchEventActivity extends AppCompatActivity {
                         String currentEvent = "";
 
                         if (e.getDate().compareTo(cal1) > -1 && e.getDate().compareTo(cal2) < 1 && (calendarCategory.getSelectedItem().toString().equals("All") || calendarCategory.getSelectedItem().toString().equals(e.getTAG()))) {
+
+                            countEvents ++;
+
                             currentEvent += "Title: " + e.getEventName() + "\n" +
                                     "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + (e.getDate().get(Calendar.MONTH) + 1) + "/" + e.getDate().get(Calendar.YEAR) + "\n" +
                                     "End time: " + e.getEndTime() + "\n" +
@@ -254,7 +257,7 @@ public class SearchEventActivity extends AppCompatActivity {
                         }
                     }
 
-                    Log.d("Search", "looped through " + counter + " items");
+                    Log.d("Search", "looped through " + countLoops + " items");
                     Log.d("Search", "Added " + countEvents + " events");
 
                     if (eventsDisplay.length() <= "Events: \n".length()) {
