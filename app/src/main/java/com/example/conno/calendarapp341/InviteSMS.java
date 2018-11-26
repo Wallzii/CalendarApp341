@@ -17,13 +17,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+
 public class InviteSMS extends AppCompatActivity {
+
     private BottomNavigationView bottom_Nav;
     private Intent intent;
+    private Data data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_sms);
+
+        data = new Data(this);
+        data.writeData();
+        data.loadEvents();
 
         // Check appropriate permissions are enabled.
         checkPermissions();
@@ -79,7 +88,17 @@ public class InviteSMS extends AppCompatActivity {
         String phoneNumber = phoneNumberET.getText().toString();
         String textData = textDataET.getText().toString();
 
-        sendSMS(phoneNumber, textData);
+//        String testData = data.events.get(0).getDesc();
+        String testData = data.events.get(0).toString();
+        String testData2 = data.events.get(0).getTAG();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        String testData3 = dateFormat.format(data.events.get(0).getDate().getTime());
+
+//        sendSMS(phoneNumber, textData);
+        sendSMS(phoneNumber, testData);
+//        sendSMS(phoneNumber, data.events.get(0).toString());
+//        System.out.println("****************************** DATA: " + data.events.get(0).toString());
 //        sendSMS("12503170864", "TESTING!");
     }
 
