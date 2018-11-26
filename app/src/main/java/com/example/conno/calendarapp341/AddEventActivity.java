@@ -68,16 +68,20 @@ public class AddEventActivity extends AppCompatActivity {
                 }
                 else {
                     String event;
-                    event = dateText.getText().toString().substring(1+dateText.getText().toString().lastIndexOf('/'))+ ", "+
-                            dateText.getText().toString().substring(1+dateText.getText().toString().indexOf('/'), dateText.getText().toString().lastIndexOf('/'))+", "+
-                            dateText.getText().toString().substring(0, dateText.getText().toString().indexOf('/'))+", "+
-                            startText.getText().toString()+", "+endText.getText().toString()+", "+tagText.getText().toString()+", "+
-                            titleText.getText().toString()+", "+descText.getText().toString()+", "+locText.getText().toString()+"\n";
+                    event = dateText.getText().toString().substring(1+dateText.getText().toString().lastIndexOf('/'))+ ","+
+                            dateText.getText().toString().substring(1+dateText.getText().toString().indexOf('/'), dateText.getText().toString().lastIndexOf('/'))+","+
+                            dateText.getText().toString().substring(0, dateText.getText().toString().indexOf('/'))+","+
+                            startText.getText().toString().substring(0,startText.getText().toString().indexOf(':'))+","+
+                            startText.getText().toString().substring(startText.getText().toString().indexOf(':')+1)+","+
+                            endText.getText().toString()+","+tagText.getText().toString()+","+
+                            titleText.getText().toString()+","+descText.getText().toString()+","+locText.getText().toString()+"\n";
                     // Year, Month, dayOfMonth, StartTime,EndTime,Tag,Title,Description,Location
                     //TODO testing
                     TextView test = findViewById(R.id.testt);
                     test.setText(event);
                     //TODO check that file works properly
+                    Data data = new Data(AddEventActivity.this);
+                    //data.writeData();
                     try {
                         File file = new File("data.txt");
                         FileOutputStream outputStream;
