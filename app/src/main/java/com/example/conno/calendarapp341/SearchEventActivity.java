@@ -118,6 +118,7 @@ public class SearchEventActivity extends AppCompatActivity {
             return false;
         }
     };
+
     public void onClickListenter(){
         requestEvents.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,65 +131,67 @@ public class SearchEventActivity extends AppCompatActivity {
                 ArrayList<Event> events = d.events;
                 String eventsDisplay = "";
 
+                //Things to keep track of where i am
+                int countLoops = 0;
+                int countEvents = 0;
+                boolean enteredSearch = false;
+                boolean addedToArray = false;
+
                 //if the input matches the proper format
                 if ((dateFrom.getText().toString().matches("\\d{2}\\/\\d{2}\\/\\d{4}") && dateTo.getText().toString().matches("\\d{2}\\/\\d{2}\\/\\d{4}")) && rangeBoolean) {
-
-                    //adding the extra month to the date
-                    String correctingDate = dateFrom.getText().toString();
-                    String [] splitDate = correctingDate.split("/");
-                    int month = Integer.parseInt(splitDate[1]);
-                    month --;
-
-                    String correctedDateFrom = splitDate[0] + Integer.toString(month) + splitDate[2]; //fromDateCorrected
-
-                    correctingDate = dateTo.getText().toString();
-                    splitDate = correctingDate.split("/");
-                    month = Integer.parseInt(splitDate[1]);
-                    month --;
-
-                    String correctedDateTo = splitDate[0] + Integer.toString(month) + splitDate[2]; //fromDateCorrected
+                    Log.d("Search", "Multiday Search");
 
                     //Converting input from EditText views
-
                     try {
-                        dateFirst = df.parse(correctedDateFrom);
-                        dateSecond = df.parse(correctedDateTo);
+                        dateFirst = df.parse(dateFrom.getText().toString()); //sending to correct date to subtract a month from the date
+                        dateSecond = df.parse(dateTo.getText().toString()); //sending to correct date to subtract a month from the date
                     } catch (Exception e) {
                         Log.d("error", "parse error");
                     }
 
                     GregorianCalendar cal1 = new GregorianCalendar();
+                    cal1.setTime(dateFirst);
                     GregorianCalendar cal2 = new GregorianCalendar();
-
-//                    cal1.setTime(dateFirst);
-//                    cal1.add(Calendar.MONTH, -1);//months are indexed from zero
-//                    cal2.setTime(dateSecond);
-//                    cal2.add(Calendar.MONTH, -1);//months are indexed from zero
-
+                    cal2.setTime(dateSecond);
 
                     Log.d("display dates", cal1.toString());
                     Log.d("display dates", cal2.toString());
 
                     for (Event e : events) {
-                        Log.d("search", "adding event to string");
+                        //Keeping track of of how many time it loops and if it has been entered
+
                         String currentEvent = "";
+
                         if (e.getDate().compareTo(cal1) > -1 && e.getDate().compareTo(cal2) < 1 && (calendarCategory.getSelectedItem().toString().equals("All") || calendarCategory.getSelectedItem().toString().equals(e.getTAG()))) {
+
+                            if(!addedToArray) {
+                                Log.d("Array", "Value entered to array");
+                                addedToArray = true;
+                            }
                             currentEvent += "Title: " + e.getEventName() + "\n" +
-                                    "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + e.getDate().get(Calendar.MONTH) + "/" + e.getDate().get(Calendar.YEAR) + "\n" +
+                                    "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + (e.getDate().get(Calendar.MONTH) + 1) + "/" + e.getDate().get(Calendar.YEAR) + "\n" +
                                     "End time: " + e.getEndTime() + "\n" +
                                     "Category: " + e.getTAG() + "\n" +
                                     "Location: " + e.getLocation() + "\n" +
                                     "Description: " + e.getDesc() + "\n\n";
 
-                            Log.d("search", currentEvent);
+                        }
 
-                            eventsDisplay += currentEvent;
+                        eventsDisplay += currentEvent;
 
+                        Log.d("test", currentEvent);
+                        countLoops ++;
+                        if(!enteredSearch) {
+                            Log.d("Search", "Search has been entered");
+                            enteredSearch = true;
                         }
 
                     }
 
-                    if (eventsDisplay.length() <= "Events: \n".length()) {
+                    Log.d("Search", "looped through " + countLoops + " items");
+                    Log.d("Search", "Added " + countEvents + " events");
+
+                    if (eventsDisplay.length() <= ("Events: \n").length()) {
                         eventsDisplay = "No events to display";
                     }
 
@@ -196,57 +199,55 @@ public class SearchEventActivity extends AppCompatActivity {
                     displayEvents.setVisibility(View.VISIBLE);
                     eventsTitle.setVisibility(View.VISIBLE);
 
-                } else if ((dateFrom.getText().toString().matches("\\d{2}\\/\\d{2}\\/\\d{4}") && dateTo.getText().toString().equals("")) && !rangeBoolean) {
+                } else if (dateFrom.getText().toString().matches("\\d{2}\\/\\d{2}\\/\\d{4}")  && !rangeBoolean) {
 
-                    //adding the extra month to the date
-                    String correctingDate = dateFrom.getText().toString();
-                    String [] splitDate = correctingDate.split("/");
-                    int month = Integer.parseInt(splitDate[1]);
-                    month --;
+                    Log.d("Search", "Single Day Search");
 
-                    String correctedDateFrom = splitDate[0] + Integer.toString(month) + splitDate[2]; //fromDateCorrected
-
-                    correctingDate = dateTo.getText().toString();
-                    splitDate = correctingDate.split("/");
-                    month = Integer.parseInt(splitDate[1]);
-                    month --;
-
-                    String correctedDateTo = splitDate[0] + Integer.toString(month) + splitDate[2]; //fromDateCorrected
+                    //Converting input from EditText views
 
                     try {
-                        dateFirst = df.parse(correctedDateFrom);
+                        dateFirst = df.parse(dateFrom.getText().toString()); //sending to correct date to subtract a month from the date
                     } catch (Exception e) {
                         Log.d("error", "parse error");
                     }
+
                     //making second date equal to first date
                     dateSecond = dateFirst;
 
-//                    //Decrementing dateFirst,
-//                    Calendar c = Calendar.getInstance();
-//                    c.setTime(dateFirst);
-//                    c.add(Calendar.DATE, -1);
-//                    dateFirst = c.getTime();
-//
-//                    //incrementing dateSecond
-//                    c.setTime(dateSecond);
-//                    c.add(Calendar.DATE, -1);
-//                    dateSecond = c.getTime();
+                    //Decrementing dateFirst,
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(dateFirst);
+                    c.add(Calendar.DATE, -1);
+                    dateFirst = c.getTime();
+
+                    //incrementing dateSecond
+                    c.setTime(dateSecond);
+                    c.add(Calendar.DATE, 1);
+                    dateSecond = c.getTime();
 
                     GregorianCalendar cal1 = new GregorianCalendar();
-                    GregorianCalendar cal2 = new GregorianCalendar();
                     cal1.setTime(dateFirst);
+                    GregorianCalendar cal2 = new GregorianCalendar();
                     cal2.setTime(dateSecond);
 
                     Log.d("display dates", cal1.toString());
                     Log.d("display dates", cal2.toString());
 
                     for (Event e : events) {
+                        countLoops++;
+                        if(!enteredSearch) {
+                            Log.d("Search", "Search has been entered");
+                            enteredSearch = true;
+                        }
 
                         String currentEvent = "";
 
                         if (e.getDate().compareTo(cal1) > -1 && e.getDate().compareTo(cal2) < 1 && (calendarCategory.getSelectedItem().toString().equals("All") || calendarCategory.getSelectedItem().toString().equals(e.getTAG()))) {
+
+                            countEvents ++;
+
                             currentEvent += "Title: " + e.getEventName() + "\n" +
-                                    "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + e.getDate().get(Calendar.MONTH) + "/" + e.getDate().get(Calendar.YEAR) + "\n" +
+                                    "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + (e.getDate().get(Calendar.MONTH) + 1) + "/" + e.getDate().get(Calendar.YEAR) + "\n" +
                                     "End time: " + e.getEndTime() + "\n" +
                                     "Category: " + e.getTAG() + "\n" +
                                     "Location: " + e.getLocation() + "\n" +
@@ -256,6 +257,8 @@ public class SearchEventActivity extends AppCompatActivity {
                         }
                     }
 
+                    Log.d("Search", "looped through " + countLoops + " items");
+                    Log.d("Search", "Added " + countEvents + " events");
 
                     if (eventsDisplay.length() <= "Events: \n".length()) {
                         eventsDisplay = "No events to display";
@@ -287,5 +290,35 @@ public class SearchEventActivity extends AppCompatActivity {
             }
         });
     }
+
+    public String getCorrectDate(String currentMonth){
+
+        String [] splitDate = currentMonth.split("/");
+        int month = Integer.parseInt(splitDate[1]);
+        month --;
+
+        String stringMonth = "";
+
+        if(month<10){
+            stringMonth += "0" + Integer.toString(month);
+        }else{
+            stringMonth += Integer.toString(month);
+        }
+
+        String correctedDate = splitDate[0] + "/" + stringMonth + "/" + splitDate[2]; //fromDateCorrected
+        Log.d("Conversion", correctedDate);
+
+        return correctedDate;
+
+
+    }
+    public String increaseMonth (String month){
+
+        int rightMonth = Integer.parseInt(month) + 1;
+
+        return Integer.toString(rightMonth);
+    }
+
+
 
 }
