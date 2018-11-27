@@ -22,7 +22,13 @@ public class MainMenu extends AppCompatActivity {
     private Intent intent;
     private Intent intent2;
     private BottomNavigationView bottom_Nav;
-    ArrayList<Entry> yvalues;
+    ArrayList<Event> events;
+    Data data = new Data(MainMenu.this);
+    float work =0f;
+    float school = 0f;
+    float personal = 0f;
+    float family = 0f;
+    ArrayList<Entry> yvalues = new ArrayList<Entry>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,24 +38,32 @@ public class MainMenu extends AppCompatActivity {
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
         PieChart pieChart = (PieChart) findViewById(R.id.pie);
         pieChart.setUsePercentValues(true);
+        data.loadEvents();
+        events = data.events;
 
-        yvalues = new ArrayList<>();
+        for(Event e: events){
+            if(e.getTAG().toLowerCase().equals("work"))
+                work++;
+            else if(e.getTAG().toLowerCase().equals("school"))
+                school++;
+            else if(e.getTAG().toLowerCase().equals("personal"))
+                personal++;
+            else if(e.getTAG().toLowerCase().equals("family"))
+                family++;
+        }
 
-        yvalues.add(new Entry(8f, 0));
-        yvalues.add(new Entry(15f, 1));
-        yvalues.add(new Entry(12f, 2));
-        yvalues.add(new Entry(25f, 3));
-        yvalues.add(new Entry(23f, 4));
-        yvalues.add(new Entry(17f, 5));
+        yvalues.add(new Entry(work,0));
+        yvalues.add(new Entry(school, 1));
+        yvalues.add(new Entry(personal, 2));
+        yvalues.add(new Entry(family, 3));
 
         PieDataSet dataSet = new PieDataSet(yvalues, "Election Results");
         ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("January");
-        xVals.add("February");
-        xVals.add("March");
-        xVals.add("April");
-        xVals.add("May");
-        xVals.add("June");
+        xVals.add("Work");
+        xVals.add("School");
+        xVals.add("Personal");
+        xVals.add("Family");
+
 
         PieData data = new PieData(xVals, dataSet);
 
@@ -59,7 +73,7 @@ public class MainMenu extends AppCompatActivity {
 
 
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-        
+
 
 
     }
