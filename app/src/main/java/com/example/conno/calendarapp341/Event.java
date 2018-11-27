@@ -49,6 +49,10 @@ public class Event implements Comparable{
     public GregorianCalendar getDate() {
         return date;
     }
+    public String getDateString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        return dateFormat.format(date.getTime());
+    }
     public void setDate(GregorianCalendar date) {
         this.date = date;
     }

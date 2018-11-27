@@ -7,42 +7,94 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
 
 public class InviteSMS extends AppCompatActivity {
 
-    private BottomNavigationView bottom_Nav;
-    private Intent intent;
+    BottomNavigationView bottom_Nav;
+    Intent intent;
     private Data data;
+    TextView displayEvents;
+    private String date, title, startHour, startMin, endHour, tag, location, description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_sms);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("SMS Event Reminder");
+        displayEvents = findViewById(R.id.textView_eventSMSDetails);
 
-        data = new Data(this);
-        data.writeData();
-        data.loadEvents();
+        // Pull event data from previous activity.
+        pullEventData();
+
+        // Output event data to textView.
+        displayEvents.setText(buildEventData());
+
+        // Used if the activity is to pull data from the on-device textfile containing events. Comment
+        // out if this is not a feature to be used.
+//        data = new Data(this);
+//        data.writeData();
+//        data.loadEvents();
 
         // Check appropriate permissions are enabled.
         checkPermissions();
 
+        // Display bottom navigation bar.
         bottom_Nav = findViewById(R.id.bottom_nav_group);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
         Menu menu = bottom_Nav.getMenu();
         MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
     }
+
+    /**
+     * Formats event data into a string that can be delivered to a recipient via SMS.
+     * @return String
+     */
+    private String buildEventData() {
+        return "Date: " + date + "\n" +
+                "Title: " + title + "\n" +
+                "Start Time: " + startHour + ":" + startMin + "\n" +
+                "End Time: " + endHour + "\n" +
+                "Category: " + tag + "\n" +
+                "Description: " + description + "\n" +
+                "Location: " + location;
+
+    }
+
+    /**
+     * Pulls event data from passed package and stores into local variables.
+     */
+    public void pullEventData() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        try {
+            date = bundle.getString("eventDate");
+            title = bundle.getString("eventTitle");
+            startHour = bundle.getString("eventStartHour");
+            startMin = bundle.getString("eventStartMin");
+            endHour = bundle.getString("eventEndHour");
+            tag = bundle.getString("eventTag");
+            description = bundle.getString("eventDescription");
+            location = bundle.getString("eventLocation");
+        } catch(Exception e) {
+            Log.d("error", "parse error");
+        }
+    }
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -68,6 +120,12 @@ public class InviteSMS extends AppCompatActivity {
         }
     };
 
+    /**
+     * Sends an SMS containing formatted event data. A phone number must be entered, but will not
+     * be checked for its validity.
+     * @param phoneNumber Phone number for intended recipient.
+     * @param textData String to be delivered to inputted phone number.
+     */
     public void sendSMS(String phoneNumber, String textData) {
 
         try {
@@ -75,35 +133,31 @@ public class InviteSMS extends AppCompatActivity {
             smsManager.sendTextMessage(phoneNumber, null, textData, null, null);
             Toast.makeText(getApplicationContext(), "Message Sent",
                     Toast.LENGTH_LONG).show();
+            finish();
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(), "You must provide a recipient phone number.", Toast.LENGTH_LONG).show();
             ex.printStackTrace();
         }
     }
 
-    public void buttonSensSMS(View view) {
+    /**
+     * Listener for sens SMS button.
+     * @param view Current view.
+     */
+    public void buttonSendSMS(View view) {
         checkPermissions();
-        EditText phoneNumberET = (EditText)findViewById(R.id.editText_recipientPhoneNumber);
-        EditText textDataET = (EditText)findViewById(R.id.editText_testData);
+        EditText phoneNumberET = findViewById(R.id.editText_recipientPhoneNumber);
+        TextView importTextData = findViewById(R.id.textView_eventSMSDetails);
+
         String phoneNumber = phoneNumberET.getText().toString();
-        String textData = textDataET.getText().toString();
+        String textData = importTextData.getText().toString();
 
-//        String testData = data.events.get(0).getDesc();
-        String testData = data.events.get(0).toString();
-        String testData2 = data.events.get(0).getTAG();
-
-        System.out.println("****************************** TEST DATA: " + testData);
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-        String testData3 = dateFormat.format(data.events.get(0).getDate().getTime());
-
-//        sendSMS(phoneNumber, textData);
-        sendSMS(phoneNumber, testData);
-//        sendSMS(phoneNumber, data.events.get(0).toString());
-//        System.out.println("****************************** DATA: " + data.events.get(0).toString());
-//        sendSMS("12503170864", "TESTING!");
+        sendSMS(phoneNumber, textData);
     }
 
+    /**
+     * Check to see if the required permissions are enabled for intended functionality to work (sending an SMS).
+     */
     public void checkPermissions() {
         int PERMISSION_ALL = 1;
         String[] PERMISSIONS = {
@@ -116,6 +170,14 @@ public class InviteSMS extends AppCompatActivity {
         }
     }
 
+    /**
+     * Make sure the user's device has the appropriate permissions for the application send an SMS.
+     * Also make sure that the user's device allows the application to check if specific permissions
+     * are met.
+     * @param context Current context.
+     * @param permissions Permissions that need to be checked (SMS).
+     * @return boolean
+     */
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
             for (String permission : permissions) {
