@@ -68,13 +68,52 @@ public class AddEventActivity extends AppCompatActivity {
                 }
                 else {
                     String event;
-                    event = dateText.getText().toString().substring(1+dateText.getText().toString().lastIndexOf('/'))+ ","+
-                            dateText.getText().toString().substring(1+dateText.getText().toString().indexOf('/'), dateText.getText().toString().lastIndexOf('/'))+","+
-                            dateText.getText().toString().substring(0, dateText.getText().toString().indexOf('/'))+","+
-                            startText.getText().toString().substring(0,startText.getText().toString().indexOf(':'))+","+
-                            startText.getText().toString().substring(startText.getText().toString().indexOf(':')+1)+","+
-                            endText.getText().toString()+","+tagText.getText().toString()+","+
-                            titleText.getText().toString()+","+descText.getText().toString()+","+locText.getText().toString()+"\n";
+//                    event = dateText.getText().toString().substring(1+dateText.getText().toString().lastIndexOf('/'))+ ","+
+//                            dateText.getText().toString().substring(1+dateText.getText().toString().indexOf('/'), dateText.getText().toString().lastIndexOf('/'))+","+
+//                            dateText.getText().toString().substring(0, dateText.getText().toString().indexOf('/'))+","+
+//                            startText.getText().toString().substring(0,startText.getText().toString().indexOf(':'))+","+
+//                            startText.getText().toString().substring(startText.getText().toString().indexOf(':')+1)+","+
+//                            endText.getText().toString()+","+
+//                            tagText.getText().toString()+","+
+//                            titleText.getText().toString()+","+
+//                            descText.getText().toString()+","+
+//                            locText.getText().toString()+"\n";
+
+                    StringBuilder builder = new StringBuilder();
+                    String indexChar = ",";
+                    String missingText = " ";
+                    builder.append(dateText.getText().toString().substring(1+dateText.getText().toString().lastIndexOf('/')));
+                    builder.append(indexChar);
+                    builder.append(dateText.getText().toString().substring(1+dateText.getText().toString().indexOf('/'), dateText.getText().toString().lastIndexOf('/')));
+                    builder.append(indexChar);
+                    builder.append(dateText.getText().toString().substring(0, dateText.getText().toString().indexOf('/')));
+                    builder.append(indexChar);
+                    builder.append(startText.getText().toString().substring(0,startText.getText().toString().indexOf(':')));
+                    builder.append(indexChar);
+                    builder.append(startText.getText().toString().substring(startText.getText().toString().indexOf(':')+1));
+                    builder.append(indexChar);
+                    builder.append(endText.getText().toString());
+                    builder.append(indexChar);
+                    builder.append(tagText.getText().toString());
+                    builder.append(indexChar);
+                    builder.append(titleText.getText().toString());
+                    builder.append(indexChar);
+                    // While descText isn't required, populate Event with whitespace to prevent SearchEventActivity failure.
+                    if(descText.getText().toString().equals(""))
+                        builder.append(missingText);
+                    else
+                        builder.append(descText.getText().toString());
+                    builder.append(indexChar);
+                    // While locText isn't required, populate Event with whitespace character to prevent SearchEventActivity failure.
+                    if(locText.getText().toString().equals(""))
+                        builder.append(missingText);
+                    else
+                        builder.append(locText.getText().toString());
+                    builder.append("\n");
+
+                    // Transfer contents of StringBuilder to String.
+                    event = builder.toString();
+
                     // Year, Month, dayOfMonth, StartTime,EndTime,Tag,Title,Description,Location
                     //TODO testing
                     TextView test = findViewById(R.id.testt);
