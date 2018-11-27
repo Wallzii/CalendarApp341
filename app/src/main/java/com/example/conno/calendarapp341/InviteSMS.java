@@ -92,6 +92,8 @@ public class InviteSMS extends AppCompatActivity {
         String testData = data.events.get(0).toString();
         String testData2 = data.events.get(0).getTAG();
 
+        System.out.println("****************************** TEST DATA: " + testData);
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
         String testData3 = dateFormat.format(data.events.get(0).getDate().getTime());
 

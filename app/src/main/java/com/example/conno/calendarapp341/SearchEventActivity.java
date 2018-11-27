@@ -51,6 +51,7 @@ public class SearchEventActivity extends AppCompatActivity {
     //      Stuff I wont need later
     Data d = new Data(SearchEventActivity.this);
     ////////////////////////////////////////////////
+      
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,8 +169,13 @@ public class SearchEventActivity extends AppCompatActivity {
                                 Log.d("Array", "Value entered to array");
                                 addedToArray = true;
                             }
+                            String min = "";
+                            if(e.getStartMin().length()<2){
+                                min = e.getStartMin() + "0";
+                            }
                             currentEvent += "Title: " + e.getEventName() + "\n" +
                                     "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + (e.getDate().get(Calendar.MONTH) + 1) + "/" + e.getDate().get(Calendar.YEAR) + "\n" +
+                                    "Start time: " + e.getStartHour() + ":"  + min + "\n" +
                                     "End time: " + e.getEndTime() + "\n" +
                                     "Category: " + e.getTAG() + "\n" +
                                     "Location: " + e.getLocation() + "\n" +
