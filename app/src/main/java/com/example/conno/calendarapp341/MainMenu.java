@@ -9,11 +9,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
+
 public class MainMenu extends AppCompatActivity {
     private Intent intent;
     private Intent intent2;
     private BottomNavigationView bottom_Nav;
-
+    ArrayList<Entry> yvalues;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +30,37 @@ public class MainMenu extends AppCompatActivity {
 
         bottom_Nav = findViewById(R.id.bottom_nav);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
+        PieChart pieChart = (PieChart) findViewById(R.id.pie);
+        pieChart.setUsePercentValues(true);
+
+        yvalues = new ArrayList<>();
+
+        yvalues.add(new Entry(8f, 0));
+        yvalues.add(new Entry(15f, 1));
+        yvalues.add(new Entry(12f, 2));
+        yvalues.add(new Entry(25f, 3));
+        yvalues.add(new Entry(23f, 4));
+        yvalues.add(new Entry(17f, 5));
+
+        PieDataSet dataSet = new PieDataSet(yvalues, "Election Results");
+        ArrayList<String> xVals = new ArrayList<String>();
+        xVals.add("January");
+        xVals.add("February");
+        xVals.add("March");
+        xVals.add("April");
+        xVals.add("May");
+        xVals.add("June");
+
+        PieData data = new PieData(xVals, dataSet);
+
+        data.setValueFormatter(new PercentFormatter());
+
+        pieChart.setData(data);
+
+
+        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        
+
 
     }
 
