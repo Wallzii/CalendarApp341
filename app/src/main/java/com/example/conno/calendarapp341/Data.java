@@ -17,7 +17,7 @@ import java.util.GregorianCalendar;
 public class Data{
 
     Context context;
-    String fileName = "data.txt";
+    final String fileName = "data.txt";
     ArrayList <Event> events = new ArrayList <>();
 
     public Data(Context context){

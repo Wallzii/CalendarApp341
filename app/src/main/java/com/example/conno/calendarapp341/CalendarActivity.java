@@ -33,8 +33,9 @@ import java.util.GregorianCalendar;
 
 public class CalendarActivity extends AppCompatActivity {
 
+    public static final String SELECTED_EVENTS = "SELECTED_EVENTS";
+
     private CalendarView mCalendarView;
-    private static final String TAG = "CalendarActivity";
     private GregorianCalendar selected;
     private TextView dateText;
     private FloatingActionButton addEventButton;
@@ -44,18 +45,33 @@ public class CalendarActivity extends AppCompatActivity {
     private ArrayList<Event> eventData;
     private Data data;
     private ArrayList<Event> selectedData;
+    private static EventAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+        selected = new GregorianCalendar();
+        data = new Data(CalendarActivity.this);
+        data.loadEvents();
+        eventData = data.events;
+        eventList = findViewById(R.id.eventList);
+        showEventsForDay();
 
+        /*eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                        .show();
+            }
+        });*/
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Calendar");
 
         dateText = findViewById(R.id.dateText);
-        selected = new GregorianCalendar();
         String dateDisplay = "" + new DateFormatSymbols().getMonths()[selected.get(Calendar.MONTH)]
                 + " " + selected.get(Calendar.DAY_OF_MONTH)
                 + " " + selected.get(Calendar.YEAR);
@@ -70,13 +86,8 @@ public class CalendarActivity extends AppCompatActivity {
                         + " " + selected.get(Calendar.DAY_OF_MONTH)
                         + " " + selected.get(Calendar.YEAR);
                 dateText.setText(dateDisplay);
-                //TODO show events in ListView for given day
-                fillEventList();
+                showEventsForDay();
 
-                //Log.d(TAG, "onSelectedDayChange: yyyy/mm/dd:" + date);
-                //Intent intent = new Intent(CalendarActivity.this,MainActivity.class);
-                //intent.putExtra("date",date);
-                //startActivity(intent);
             }
         });
 
@@ -89,7 +100,6 @@ public class CalendarActivity extends AppCompatActivity {
                         + "/" + (selected.get(Calendar.MONTH)+1)
                         + "/" + selected.get(Calendar.YEAR);
                 intent.putExtra("date", sendDate);
-                //TODO
                 startActivity(intent);
             }
         });
@@ -99,21 +109,6 @@ public class CalendarActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
 
-
-        //TODO ListView init
-        data = new Data(CalendarActivity.this);
-        //data.writeData();
-        eventList = findViewById(R.id.eventList);
-        fillEventList();
-        eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
         @Override
@@ -139,59 +134,29 @@ public class CalendarActivity extends AppCompatActivity {
             return false;
         }
     };
-    private void fillEventList(){
-        //TODO Fill event list with clickable entries
+    public void showEventsForDay(){
 
-        getEventData();
-        selectedData = new ArrayList<>();
-        for(Event event : eventData){
-            if(selected.get(Calendar.YEAR)==event.getDate().get(Calendar.YEAR)&&
-                    selected.get(Calendar.MONTH)==event.getDate().get(Calendar.YEAR)&&
-                    selected.get(Calendar.DAY_OF_MONTH)==event.getDate().get(Calendar.DAY_OF_MONTH)){
-                selectedData.add(event);
-            }
-        }
-        //TODO Sort selectedData by start time
-        EventAdapter adapter = new EventAdapter(this, selectedData);
+        EventAdapter adapter = new EventAdapter(this, getTodayEvents());
         eventList.setAdapter(adapter);
-        for(int i = 0 ; i < selectedData.size() ; i++ ){
-            adapter.getView(i,null, eventList);
+        adapter.notifyDataSetChanged();
+
+    }
+    public Event[] getTodayEvents(){
+        //TODO SORT EVENTS AND MAKE THEM CLICKABLE
+        ArrayList<Event> today = new ArrayList<>();
+        for(Event e : eventData){
+
+            if((selected.get(Calendar.YEAR)==e.getDate().get(Calendar.YEAR))&&
+                    (selected.get(Calendar.MONTH)==e.getDate().get(Calendar.MONTH ))&&
+                    (selected.get(Calendar.DAY_OF_MONTH)==e.getDate().get(Calendar.DAY_OF_MONTH))){
+                today.add(e);
+            }
+
         }
-        //final ArrayAdapter adapter = new ArrayAdapter(this,
-        //        android.R.layout.simple_list_item_1, eventData);
-        //eventList.setAdapter(adapter);
-
-
-    }
-    private void getEventData(){
-        //TODO
-        data.loadEvents();
-        eventData = data.events;
-    }
-
-}
-class EventAdapter extends ArrayAdapter<Event> {
-    public EventAdapter(Context context, ArrayList<Event> events) {
-        super(context, 0, events);
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
-        Event event = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_event, parent, false);
-        }
-        // Lookup view for data population
-        TextView eTitle = (TextView) convertView.findViewById(R.id.list_event_name);
-        TextView eTimes = (TextView) convertView.findViewById(R.id.list_event_times);
-        // Populate the data into the template view using the data object
-        eTitle.setText(event.getEventName());
-        String times = event.getDate().getTime().toString() + " - " + event.getEndTime();
-        eTimes.setText(times);
-        // Return the completed view to render on screen
-        return convertView;
+        selectedData=today;
+        Event[] todayArr = new Event[today.size()];
+        todayArr = today.toArray(todayArr);
+        return todayArr;
     }
 }
 
