@@ -63,7 +63,8 @@ public class InviteSMS extends AppCompatActivity {
      * @return String
      */
     private String buildEventData() {
-        return "Date: " + date + "\n" +
+        return "Event Reminder from Calendar341:\n" +
+                "Date: " + date + "\n" +
                 "Title: " + title + "\n" +
                 "Start Time: " + startHour + ":" + startMin + "\n" +
                 "End Time: " + endHour + "\n" +
