@@ -3,6 +3,7 @@ package com.example.conno.calendarapp341;
 import android.support.annotation.NonNull;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -31,16 +32,45 @@ public class Event implements Comparable{
         location = e[9];
     }
 
-
-
-
     @Override
     public int compareTo(@NonNull Object o) {
         Event otherEvent = (Event) o;
         GregorianCalendar thisD = this.getDate();
         GregorianCalendar otherD = otherEvent.getDate();
-        int result = thisD.compareTo(otherD);
-
+        int result;
+        if(thisD.get(Calendar.YEAR)==otherD.get(Calendar.YEAR)){
+            if(thisD.get(Calendar.MONTH)==otherD.get(Calendar.MONTH)){
+                if (thisD.get(Calendar.DAY_OF_MONTH)==thisD.get(Calendar.DAY_OF_MONTH)){
+                    int thisHour,thatHour,thisMinute,thatMinute;
+                    thisHour=Integer.parseInt(this.startHour);
+                    thatHour=Integer.parseInt(otherEvent.getStartHour());
+                    thisMinute=Integer.parseInt(this.startHour);
+                    thatMinute=Integer.parseInt(otherEvent.getStartHour());
+                    if(thatHour==thatHour){
+                        if(thisMinute==thatMinute){
+                            result=0;
+                        }
+                        else if(thisMinute<thatMinute){
+                            result = -1;
+                        } else result = 1;
+                    }
+                    else if(thisHour<thatHour){
+                        result = -1;
+                    }
+                    else result = 1;
+                }
+                else if(thisD.get(Calendar.DAY_OF_MONTH)<thisD.get(Calendar.DAY_OF_MONTH)){
+                    result=-1;
+                }
+                else result = 1;
+            }
+            else if(thisD.get(Calendar.MONTH)==thisD.get(Calendar.MONTH)){
+                result=-1;
+            }
+            else result=1;
+        } else if(thisD.get(Calendar.DAY_OF_MONTH)<thisD.get(Calendar.DAY_OF_MONTH)){
+            result=-1;
+        }else result = 1;
         return result;
     }
 
@@ -50,7 +80,7 @@ public class Event implements Comparable{
         return date;
     }
     public String getDateString() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy,MM,dd");
         return dateFormat.format(date.getTime());
     }
     public void setDate(GregorianCalendar date) {

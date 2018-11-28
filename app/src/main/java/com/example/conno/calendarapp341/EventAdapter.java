@@ -36,6 +36,7 @@ public class EventAdapter extends ArrayAdapter {
         TextView etime;
     }
 
+
     //public void onClick(View v){
     //    System.out.print("CLICKCLICKCLICK");
     //    //TODO
@@ -63,7 +64,7 @@ public class EventAdapter extends ArrayAdapter {
         }
 
         // Populate the data into the template view
-        String times = String.format(event.getDate().get(Calendar.HOUR)+":%02d - " + event.getEndTime(), event.getDate().get(Calendar.MINUTE));
+        String times = event.getStartHour()+":"+event.getStartMin() +" - " + event.getEndTime();
         viewHolder.etitle.setText(event.getEventName());
         viewHolder.etime.setText(times);
 

@@ -25,7 +25,7 @@
         </activity>
         <activity android:name=".SearchEventActivity" />
         <activity android:name=".InviteSMS" />
-        <activity android:name=".SearchEventActivity" />
+        <activity android:name=".ViewEventActivity"></activity>
     </application>
 
 </manifest>

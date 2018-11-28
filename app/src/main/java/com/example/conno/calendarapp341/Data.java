@@ -31,7 +31,7 @@ public class Data{
 
         File file = context.getFileStreamPath(fileName);
 
-        if (file.length() == 0) {
+        if (!file.exists()||file.length() == 0) {
 
             try {
                 // Format for data.txt that holds event information.
@@ -41,15 +41,15 @@ public class Data{
 
                         //0    1  2 3 4   5     6      7             8                    9
 
-                        "2018,11,16,9,0,10:00,Work,Study,Study for 341 test,UBC Okanagan campus\n" +
-                        "2018,11,18,9,0,10:00,School,Study,Study for 341 test,UBC Okanagan campus\n" +
-                        "2018,11,19,9,0,10:00,Personal,Study,Study for 341 test,UBC Okanagan campus\n" +
-                        "2018,11,21,9,0,10:00,Family,Study,Study for 341 test,UBC Okanagan campus\n" +
-                        "2018,11,23,9,0,10:00,School,Study,Study for 341 test,UBC Okanagan campus\n" +
-                        "2018,11,25,9,0,10:00,School,Study,Study for 341 test,UBC Okanagan campus\n" +
-                        "2018,11,30,9,0,10:00,Work,Study,Study for 341 test,UBC Okanagan campus\n" +
-                        "2018,11,30,9,0,10:00,Family,Study,Study for 341 test,UBC Okanagan campus\n" +
-                        "2018,11,30,9,0,10:00,School,Study,Study for 341 test,UBC Okanagan campus\n";
+                        "2018,11,16,9,00,10:00,Work,Study,Study for 341 test,UBC Okanagan campus\n" +
+                        "2018,11,18,9,00,10:00,School,Study,Study for 341 test,UBC Okanagan campus\n" +
+                        "2018,11,19,9,00,10:00,Personal,Study,Study for 341 test,UBC Okanagan campus\n" +
+                        "2018,11,21,9,00,10:00,Family,Study,Study for 341 test,UBC Okanagan campus\n" +
+                        "2018,11,23,9,00,10:00,School,Study,Study for 341 test,UBC Okanagan campus\n" +
+                        "2018,11,25,9,00,10:00,School,Study,Study for 341 test,UBC Okanagan campus\n" +
+                        "2018,11,30,9,00,10:00,Work,Study,Study for 341 test,UBC Okanagan campus\n" +
+                        "2018,11,30,9,00,10:00,Family,Study,Study for 341 test,UBC Okanagan campus\n" +
+                        "2018,11,30,9,00,10:00,School,Study,Study for 341 test,UBC Okanagan campus\n";
 
                 //Writing to file
                 FileOutputStream outputStream;
@@ -85,6 +85,7 @@ public class Data{
 
                 line = br.readLine();
             }
+            Collections.sort(events);
             Log.d("loadEvents", "done loading");
 
         } catch (IOException e) {

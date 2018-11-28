@@ -1,5 +1,6 @@
 package com.example.conno.calendarapp341;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.text.DateFormatSymbols;
 import java.util.GregorianCalendar;
@@ -44,8 +46,17 @@ public class CalendarActivity extends AppCompatActivity {
     private ListView eventList;
     private ArrayList<Event> eventData;
     private Data data;
-    private ArrayList<Event> selectedData;
     private static EventAdapter adapter;
+    private Event[] todayEvents;
+
+    //@Override
+    protected void onResume(){
+        super.onResume();
+        data = new Data(CalendarActivity.this);
+        data.loadEvents();
+        eventData = data.events;
+        showEventsForDay();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,20 +64,26 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
         selected = new GregorianCalendar();
         data = new Data(CalendarActivity.this);
+        data.writeData();
         data.loadEvents();
         eventData = data.events;
         eventList = findViewById(R.id.eventList);
         showEventsForDay();
 
-        /*eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                        .show();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Toast.makeText(getApplicationContext(),"Click ListItem Number " + position, Toast.LENGTH_LONG).show();
+                Intent vintent = new Intent(getApplicationContext(),ViewEventActivity.class);
+                Event sendingEvent = todayEvents[position];
+                // Year, Month, dayOfMonth, StartTime,EndTime,Tag,Title,Description,Location
+                String sending = sendingEvent.getDateString()+","+sendingEvent.getStartHour()+","+sendingEvent.getStartMin()+
+                        ","+sendingEvent.getEndTime()+","+sendingEvent.getTAG()+","+sendingEvent.getEventName()
+                        + ","+sendingEvent.getDesc() +","+sendingEvent.getLocation();
+                vintent.putExtra("event",sending);
+                startActivity(vintent);
             }
-        });*/
+        });
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Calendar");
@@ -101,9 +118,6 @@ public class CalendarActivity extends AppCompatActivity {
                         + "/" + selected.get(Calendar.YEAR);
                 intent.putExtra("date", sendDate);
                 startActivity(intent);
-                data = new Data(CalendarActivity.this);
-                data.loadEvents();
-                eventData = data.events;
             }
         });
         bottom_Nav = findViewById(R.id.bottom_nav_calender);
@@ -138,12 +152,14 @@ public class CalendarActivity extends AppCompatActivity {
         }
     };
     public void showEventsForDay(){
-
-        EventAdapter adapter = new EventAdapter(this, getTodayEvents());
+        todayEvents = getTodayEvents();
+        adapter = new EventAdapter(this, todayEvents);
         eventList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
     }
+
+
     public Event[] getTodayEvents(){
         //TODO SORT EVENTS AND MAKE THEM CLICKABLE
         ArrayList<Event> today = new ArrayList<>();
@@ -154,9 +170,7 @@ public class CalendarActivity extends AppCompatActivity {
                     (selected.get(Calendar.DAY_OF_MONTH)==e.getDate().get(Calendar.DAY_OF_MONTH))){
                 today.add(e);
             }
-
         }
-        selectedData=today;
         Event[] todayArr = new Event[today.size()];
         todayArr = today.toArray(todayArr);
         return todayArr;
