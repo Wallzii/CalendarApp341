@@ -120,6 +120,7 @@ public class CalendarActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         bottom_Nav = findViewById(R.id.bottom_nav_calender);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
         Menu menu = bottom_Nav.getMenu();
