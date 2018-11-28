@@ -12,14 +12,19 @@ import android.widget.Toast;
 public class Login extends AppCompatActivity {
 
     TextView signUp, policyAgreements;
+    private Data data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        signUp = (TextView) findViewById(R.id.textView_signUp);
-        policyAgreements = (TextView) findViewById(R.id.textView_policies);
+        signUp = findViewById(R.id.textView_signUp);
+        policyAgreements = findViewById(R.id.textView_policies);
+
+        // Populate application with default dataset, if it doesn't exist. For testing purposes.
+        data = new Data(this);
+        data.writeData();
 
         MakeLinks.makeLinks(signUp, new String[] {
                 "Sign up!"
@@ -38,7 +43,6 @@ public class Login extends AppCompatActivity {
         });
     }
 
-//        signUp.setLinkTextColor(Color.BLUE); // default link color for clickable span, we can also set it in xml by android:textColorLink=""
     ClickableSpan signUpLink = new ClickableSpan() {
         @Override
         public void onClick(View view) {
@@ -62,7 +66,8 @@ public class Login extends AppCompatActivity {
     };
 
     public void buttonLogin(View view) {
-        Intent intent = new Intent(Login.this, MainActivity.class);
+        Intent intent = new Intent(Login.this, MainMenu.class);
         startActivity(intent);
+        finish();
     }
 }

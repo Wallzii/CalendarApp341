@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.conno.calendarapp341">
 
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,23 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login"></activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".CalendarActivity" />
-        <activity android:name=".AddEventActivity" />
-        <activity android:name=".MainMenu">
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchEventActivity"></activity>
-        <activity android:name=".InviteSMS"></activity>
-        <activity android:name=".SearchEventActivity"></activity>
+        <activity android:name=".MainMenu" />
+        <activity android:name=".CalendarActivity" />
+        <activity android:name=".AddEventActivity" />
+        <activity android:name=".SearchEventActivity" />
+        <activity android:name=".InviteSMS" />
+        <activity android:name=".MainActivity" />
     </application>
-
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 </manifest>
