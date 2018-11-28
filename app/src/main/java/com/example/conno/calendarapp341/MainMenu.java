@@ -86,17 +86,13 @@ public class MainMenu extends AppCompatActivity {
 
                 case R.id.nav_piechart:
                     break;
-                case R.id.nav_group:
-                    intent = new Intent(MainMenu.this,InviteSMS.class);
-                    startActivity(intent);
-                    break;
                 case R.id.nav_calender:
                     intent = new Intent(MainMenu.this,CalendarActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.nav_search:
-                    intent2 = new Intent(MainMenu.this,SearchEventActivity.class);
-                    startActivity(intent2);
+                    intent = new Intent(MainMenu.this,SearchEventActivity.class);
+                    startActivity(intent);
                     break;
             }
             return false;

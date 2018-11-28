@@ -91,7 +91,7 @@ public class SearchEventActivity extends AppCompatActivity {
         bottom_Nav = findViewById(R.id.bottom_nav_search);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
         Menu menu = bottom_Nav.getMenu();
-        MenuItem menuItem = menu.getItem(3);
+        MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
 
     }
@@ -103,10 +103,6 @@ public class SearchEventActivity extends AppCompatActivity {
 
                 case R.id.nav_piechart:
                     intent = new Intent(SearchEventActivity.this,MainMenu.class);
-                    startActivity(intent);
-                    break;
-                case R.id.nav_group:
-                    intent = new Intent(SearchEventActivity.this,InviteSMS.class);
                     startActivity(intent);
                     break;
                 case R.id.nav_calender:

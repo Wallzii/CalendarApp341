@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 public class InviteSMS extends AppCompatActivity {
 
-    BottomNavigationView bottom_Nav;
+
     Intent intent;
     private Data data;
     TextView displayEvents;
@@ -51,11 +51,8 @@ public class InviteSMS extends AppCompatActivity {
         checkPermissions();
 
         // Display bottom navigation bar.
-        bottom_Nav = findViewById(R.id.bottom_nav_group);
-        bottom_Nav.setOnNavigationItemSelectedListener(navListener);
-        Menu menu = bottom_Nav.getMenu();
-        MenuItem menuItem = menu.getItem(2);
-        menuItem.setChecked(true);
+
+
     }
 
     /**
@@ -94,31 +91,6 @@ public class InviteSMS extends AppCompatActivity {
         }
     }
 
-
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-            switch (menuItem.getItemId()) {
-
-                case R.id.nav_piechart:
-                    intent = new Intent(InviteSMS.this,MainMenu.class);
-                    startActivity(intent);
-                    break;
-                case R.id.nav_group:
-                    break;
-                case R.id.nav_calender:
-                    intent = new Intent(InviteSMS.this,CalendarActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.nav_search:
-                    intent = new Intent(InviteSMS.this,SearchEventActivity.class);
-                    startActivity(intent);
-                    break;
-            }
-            return false;
-        }
-    };
 
     /**
      * Sends an SMS containing formatted event data. A phone number must be entered, but will not
