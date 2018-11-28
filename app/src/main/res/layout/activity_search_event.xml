@@ -175,6 +175,7 @@
                 <requestFocus /></Button>
 
 
+
             <TextView
                 android:id="@+id/eventsTitle"
                 android:layout_width="wrap_content"
