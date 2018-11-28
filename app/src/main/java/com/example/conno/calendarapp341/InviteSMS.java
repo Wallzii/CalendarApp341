@@ -60,8 +60,7 @@ public class InviteSMS extends AppCompatActivity {
      * @return String
      */
     private String buildEventData() {
-        return "Event Reminder from Calendar341:\n" +
-                "Date: " + date + "\n" +
+        return "Date: " + date + "\n" +
                 "Title: " + title + "\n" +
                 "Start Time: " + startHour + ":" + startMin + "\n" +
                 "End Time: " + endHour + "\n" +
@@ -125,7 +124,7 @@ public class InviteSMS extends AppCompatActivity {
         String phoneNumber = phoneNumberET.getText().toString();
         String textData = importTextData.getText().toString();
 
-        sendSMS(phoneNumber, textData);
+        sendSMS(phoneNumber, "Event Reminder from Calendar341:\n" + textData);
     }
 
     /**
