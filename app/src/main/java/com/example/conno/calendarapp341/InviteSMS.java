@@ -23,7 +23,7 @@ public class InviteSMS extends AppCompatActivity {
 
     BottomNavigationView bottom_Nav;
     Intent intent;
-    private Data data;
+//    private Data data;
     TextView displayEvents;
     private String date, title, startHour, startMin, endHour, tag, location, description;
 
