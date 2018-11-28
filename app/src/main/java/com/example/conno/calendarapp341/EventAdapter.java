@@ -12,6 +12,11 @@ import android.widget.TextView;
 import com.example.conno.calendarapp341.Event;
 import com.example.conno.calendarapp341.R;
 
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Locale;
+
 
 public class EventAdapter extends ArrayAdapter {
 
@@ -58,7 +63,7 @@ public class EventAdapter extends ArrayAdapter {
         }
 
         // Populate the data into the template view
-        String times = event.getDate().getTime().toString() + " - " + event.getEndTime();
+        String times = String.format(event.getDate().get(Calendar.HOUR)+":%02d - " + event.getEndTime(), event.getDate().get(Calendar.MINUTE));
         viewHolder.etitle.setText(event.getEventName());
         viewHolder.etime.setText(times);
 

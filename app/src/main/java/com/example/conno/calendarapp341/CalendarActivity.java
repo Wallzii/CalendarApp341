@@ -101,6 +101,9 @@ public class CalendarActivity extends AppCompatActivity {
                         + "/" + selected.get(Calendar.YEAR);
                 intent.putExtra("date", sendDate);
                 startActivity(intent);
+                data = new Data(CalendarActivity.this);
+                data.loadEvents();
+                eventData = data.events;
             }
         });
         bottom_Nav = findViewById(R.id.bottom_nav_calender);
