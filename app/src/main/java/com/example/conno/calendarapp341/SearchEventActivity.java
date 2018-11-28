@@ -2,8 +2,10 @@ package com.example.conno.calendarapp341;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.constraint.solver.widgets.ConstraintHorizontalLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,7 +40,7 @@ public class SearchEventActivity extends AppCompatActivity {
     EditText dateTo;
     Spinner calendarCategory;
     Button requestEvents;
-    LinearLayout toDateLayout;
+    ConstraintLayout toDateLayout;
     TextView displayEvents;
     TextView eventsTitle;
     private BottomNavigationView bottom_Nav;
@@ -57,6 +59,8 @@ public class SearchEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_event);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Search");
 
         rangeQuery = (Switch) findViewById(R.id.switchRagne);
         rangeQuery.setChecked(false);
@@ -70,7 +74,7 @@ public class SearchEventActivity extends AppCompatActivity {
         displayEvents.setVisibility(View.INVISIBLE);
         eventsTitle.setVisibility(View.INVISIBLE);
 
-        toDateLayout = (LinearLayout) findViewById(R.id.toDateLayout);
+        toDateLayout = (ConstraintLayout) findViewById(R.id.dateToGroup);
 
         rangeBoolean = false;
         toDateLayout.setVisibility(View.INVISIBLE);
@@ -91,7 +95,7 @@ public class SearchEventActivity extends AppCompatActivity {
         bottom_Nav = findViewById(R.id.bottom_nav_search);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
         Menu menu = bottom_Nav.getMenu();
-        MenuItem menuItem = menu.getItem(3);
+        MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
 
     }
@@ -103,10 +107,6 @@ public class SearchEventActivity extends AppCompatActivity {
 
                 case R.id.nav_piechart:
                     intent = new Intent(SearchEventActivity.this,MainMenu.class);
-                    startActivity(intent);
-                    break;
-                case R.id.nav_group:
-                    intent = new Intent(SearchEventActivity.this,InviteSMS.class);
                     startActivity(intent);
                     break;
                 case R.id.nav_calender:
@@ -169,13 +169,9 @@ public class SearchEventActivity extends AppCompatActivity {
                                 Log.d("Array", "Value entered to array");
                                 addedToArray = true;
                             }
-                            String min = "";
-                            if(e.getStartMin().length()<2){
-                                min = e.getStartMin() + "0";
-                            }
                             currentEvent += "Title: " + e.getEventName() + "\n" +
                                     "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + (e.getDate().get(Calendar.MONTH) + 1) + "/" + e.getDate().get(Calendar.YEAR) + "\n" +
-                                    "Start time: " + e.getStartHour() + ":"  + min + "\n" +
+                                    "Start time: " + e.getStartHour() + ":"  + e.getStartMin() + "\n" +
                                     "End time: " + e.getEndTime() + "\n" +
                                     "Category: " + e.getTAG() + "\n" +
                                     "Location: " + e.getLocation() + "\n" +
@@ -254,6 +250,7 @@ public class SearchEventActivity extends AppCompatActivity {
 
                             currentEvent += "Title: " + e.getEventName() + "\n" +
                                     "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + (e.getDate().get(Calendar.MONTH) + 1) + "/" + e.getDate().get(Calendar.YEAR) + "\n" +
+                                    "Start time: " +e.getStartHour()+":"+e.getStartMin()+"\n"+
                                     "End time: " + e.getEndTime() + "\n" +
                                     "Category: " + e.getTAG() + "\n" +
                                     "Location: " + e.getLocation() + "\n" +

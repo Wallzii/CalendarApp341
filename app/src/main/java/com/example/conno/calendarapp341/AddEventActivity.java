@@ -50,10 +50,8 @@ public class AddEventActivity extends AppCompatActivity {
                     String event = retrieveEventText();
 
                     // Year, Month, dayOfMonth, StartTime,EndTime,Tag,Title,Description,Location
-                    //TODO testing
                     TextView test = findViewById(R.id.testt);
                     test.setText(event);
-                    //TODO check that file works properly
                     Data data = new Data(AddEventActivity.this);
                     //data.writeData();
                     try {
@@ -67,15 +65,7 @@ public class AddEventActivity extends AppCompatActivity {
                     }
                     Toast.makeText(getApplicationContext(),"Event added successfully.",Toast.LENGTH_LONG).show();
                     finish();
-                    //finishActivity(22);
                 }
-                //TODO make sure not needed
-                //Intent intent = new Intent(CalendarActivity.this,AddEventActivity.class);
-                //String sendDate = "" + selected.get(Calendar.MONTH)
-                //        + " " + selected.get(Calendar.DAY_OF_MONTH)
-                //        + " " + selected.get(Calendar.YEAR);
-                //intent.putExtra("date", sendDate);
-                //startActivity(intent);
             }
         });
 
@@ -84,13 +74,6 @@ public class AddEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                //TODO make sure not needed
-                // Intent intent = new Intent(CalendarActivity.this,AddEventActivity.class);
-                //String sendDate = "" + selected.get(Calendar.MONTH)
-                //        + " " + selected.get(Calendar.DAY_OF_MONTH)
-                //        + " " + selected.get(Calendar.YEAR);
-                //intent.putExtra("date", sendDate);
-                //startActivity(intent);
             }
         });
 
@@ -106,22 +89,22 @@ public class AddEventActivity extends AppCompatActivity {
         if(titleText.getText().toString().equals("")||dateText.getText().toString().equals("")
                 ||startText.getText().toString().equals("")||endText.getText().toString().equals("")||
                 tagText.getText().toString().equals("")){
-            Toast.makeText(getApplicationContext(),"Date, title, tag, start, and end time fields are required. Please fill them out and try again.",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Date, title, tag, start, and end time fields are required. Please fill them out and try again.",Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(titleText.getText().toString().contains(",")||dateText.getText().toString().contains(",")||
                 startText.getText().toString().contains(",")||endText.getText().toString().contains(",")||
                 descText.getText().toString().contains(",")||locText.getText().toString().contains(",")||
                 tagText.getText().toString().contains(",")){
-            Toast.makeText(getApplicationContext(),"Fields may not contain commas. Please remove commas and try again.",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Fields may not contain commas. Please remove commas and try again.",Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(!dateText.getText().toString().matches("[0-9]{2}[/][0-9]{2}[/][0-9]{4}")){
-            Toast.makeText(getApplicationContext(),"You have entered an invalid date field. Please use dd/mm/yyyy in 24 hour format.",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"You have entered an invalid date field. Please use dd/mm/yyyy in 24 hour format.",Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(!startText.getText().toString().matches("^(1[0-9]|2[0-3]|[0-9]):[0-5][0-9]")||!endText.getText().toString().matches("^(1[0-9]|2[0-3]|[0-9]):[0-5][0-9]")){
-            Toast.makeText(getApplicationContext(),"You have entered an invalid time field. Please use hours:minutes in 24 hour format.",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"You have entered an invalid time field. Please use hours:minutes in 24 hour format.",Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
@@ -195,15 +178,6 @@ public class AddEventActivity extends AppCompatActivity {
         return builder.toString();
     }
 
-    //TODO probably unnecessary code
-    //@Override
-    //public void onBackPressed() {
-        //Intent mIntent = getIntent();
-        //mIntent.putExtra("playState", isPlaying);
-        //mIntent.putExtra("progress", seekbarProgress);
-        //setResult(RESULT_OK, mIntent);
-    //    finish();
-    //}
 
 
 }
