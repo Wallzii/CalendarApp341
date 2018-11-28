@@ -1,9 +1,13 @@
 package com.example.conno.calendarapp341;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +16,7 @@ import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
 public class ViewEventActivity extends AppCompatActivity {
+    private BottomNavigationView bottom_Nav;
 
     Event event;
     @Override
@@ -52,6 +57,11 @@ public class ViewEventActivity extends AppCompatActivity {
             }
         });
 
+        bottom_Nav = findViewById(R.id.bottom_nav_calender);
+        bottom_Nav.setOnNavigationItemSelectedListener(navListener);
+        Menu menu = bottom_Nav.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
 
     }
 
@@ -76,4 +86,26 @@ public class ViewEventActivity extends AppCompatActivity {
             startActivity(intent);
 
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            Intent intent;
+            switch (menuItem.getItemId()) {
+
+                case R.id.nav_piechart:
+                    intent = new Intent(ViewEventActivity.this,MainMenu.class);
+                    startActivity(intent);
+                    break;
+                case R.id.nav_calender:
+                    intent = new Intent(ViewEventActivity.this,CalendarActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.nav_search:
+                    intent = new Intent(ViewEventActivity.this,SearchEventActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+            return false;
+        }
+    };
 }
