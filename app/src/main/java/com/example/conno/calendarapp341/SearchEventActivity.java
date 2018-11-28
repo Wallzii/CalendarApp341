@@ -81,9 +81,9 @@ public class SearchEventActivity extends AppCompatActivity {
 
         //////////////////////////
         //      Stuff I wont need later
-        Log.d("onCreate", "About to create data");
-        d.writeData();
-        Log.d("onCreate", "data written");
+//        Log.d("onCreate", "About to create data");
+//        d.writeData();
+//        Log.d("onCreate", "data written");
         d.loadEvents();
         Log.d("onCreate", "data loaded");
         ////////////////////////
