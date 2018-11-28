@@ -37,8 +37,10 @@
     <string name="textView_testData">Test Data:</string>
     <string name="button_SMS">SMS</string>
     <string name="title_piechart">Pie Chart</string>
-    <string name="title_calender">Calender</string>
+    <string name="title_calendar">Calendar</string>
     <string name="title_group">Group</string>
     <string name="title_search">Search</string>
+    <string name="textview_eventSMSDetails">Event Details Placeholder Text</string>
+    <string name="textView_eventData">Event Data:</string>
 
 </resources>
