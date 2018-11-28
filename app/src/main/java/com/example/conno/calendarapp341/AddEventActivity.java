@@ -2,9 +2,13 @@ package com.example.conno.calendarapp341;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +24,7 @@ public class AddEventActivity extends AppCompatActivity {
 
     private TextView dateText;
     TextView titleText, startText, endText, descText, locText, tagText;
+    private BottomNavigationView bottom_Nav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +82,11 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
+        bottom_Nav = findViewById(R.id.bottom_nav_calender);
+        bottom_Nav.setOnNavigationItemSelectedListener(navListener);
+        Menu menu = bottom_Nav.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
 
     }
 
@@ -177,7 +187,33 @@ public class AddEventActivity extends AppCompatActivity {
         // Return contents of StringBuilder as String.
         return builder.toString();
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            Intent intent;
+            switch (menuItem.getItemId()) {
 
+                case R.id.nav_piechart:
+                    intent = new Intent(AddEventActivity.this,MainMenu.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    startActivity(intent);
+                    break;
+                case R.id.nav_calender:
+                    intent = new Intent(AddEventActivity.this,CalendarActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    startActivity(intent);
+                    break;
+                case R.id.nav_search:
+                    intent = new Intent(AddEventActivity.this,SearchEventActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    break;
+            }
+            return false;
+        }
+    };
 
 
 }

@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 public class InviteSMS extends AppCompatActivity {
 
 
@@ -26,6 +28,7 @@ public class InviteSMS extends AppCompatActivity {
 //    private Data data;
     TextView displayEvents;
     private String date, title, startHour, startMin, endHour, tag, location, description;
+    private BottomNavigationView bottom_Nav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +54,36 @@ public class InviteSMS extends AppCompatActivity {
         checkPermissions();
 
         // Display bottom navigation bar.
+        bottom_Nav = findViewById(R.id.bottom_nav_group);
+        bottom_Nav.setOnNavigationItemSelectedListener(navListener);
+        Menu menu = bottom_Nav.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
 
 
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
+            switch (menuItem.getItemId()) {
+
+                case R.id.nav_piechart:
+                    intent = new Intent(InviteSMS.this,MainMenu.class);
+                    startActivity(intent);
+                    break;
+                case R.id.nav_calender:
+                    intent = new Intent(InviteSMS.this,CalendarActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.nav_search:
+                    intent = new Intent(InviteSMS.this,SearchEventActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+            return false;
+        }
+    };
     /**
      * Formats event data into a string that can be delivered to a recipient via SMS.
      * @return String
