@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +37,8 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Schedule Breakdown");
         bottom_Nav = findViewById(R.id.bottom_nav);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
         final PieChart pieChart = (PieChart) findViewById(R.id.pie);
@@ -75,7 +77,7 @@ public class MainMenu extends AppCompatActivity {
 
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         pieChart.setRotationEnabled(false);
-        
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
