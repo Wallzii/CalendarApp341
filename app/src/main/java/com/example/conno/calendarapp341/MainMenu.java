@@ -75,6 +75,9 @@ public class MainMenu extends AppCompatActivity {
 
         pieChart.setData(data);
 
+        pieChart.setTouchEnabled(false);
+
+
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         pieChart.setRotationEnabled(false);
     }
