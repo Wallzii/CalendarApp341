@@ -1,9 +1,8 @@
 package com.example.conno.calendarapp341;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.TextView;
@@ -26,19 +25,19 @@ public class Login extends AppCompatActivity {
         data = new Data(this);
         data.writeData();
 
-        MakeLinks.makeLinks(signUp, new String[] {
+        MakeLinks.makeLinks(signUp, new String[]{
                 "Sign up!"
-        }, new ClickableSpan[] {
+        }, new ClickableSpan[]{
                 signUpLink
         });
-        MakeLinks.makeLinks(policyAgreements, new String[] {
+        MakeLinks.makeLinks(policyAgreements, new String[]{
                 "privacy policy"
-        }, new ClickableSpan[] {
+        }, new ClickableSpan[]{
                 privacyPolicyLink
         });
-        MakeLinks.makeLinks(policyAgreements, new String[] {
+        MakeLinks.makeLinks(policyAgreements, new String[]{
                 "user agreement"
-        }, new ClickableSpan[] {
+        }, new ClickableSpan[]{
                 userAgreementLink
         });
     }

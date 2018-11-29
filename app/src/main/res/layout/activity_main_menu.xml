@@ -7,7 +7,6 @@
     tools:context=".MainMenu">
 
 
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
@@ -19,10 +18,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/nav_menu"
-        android:background="?android:attr/windowBackground"/>
+        android:background="?android:attr/windowBackground" />
+
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pie"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </android.support.constraint.ConstraintLayout>

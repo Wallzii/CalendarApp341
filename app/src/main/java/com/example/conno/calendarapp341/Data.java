@@ -11,27 +11,26 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.GregorianCalendar;
 
-public class Data{
+public class Data {
 
     Context context;
     final String fileName = "data.txt";
-    ArrayList <Event> events = new ArrayList <>();
+    ArrayList<Event> events = new ArrayList<>();
 
-    public Data(Context context){
-     this.context = context;
+    public Data(Context context) {
+        this.context = context;
     }
 
 
-    public void writeData(){
+    public void writeData() {
 //        File file = new File(fileName);
 //        long filelength = file.length();
 
         File file = context.getFileStreamPath(fileName);
 
-        if (!file.exists()||file.length() == 0) {
+        if (!file.exists() || file.length() == 0) {
 
             try {
                 // Format for data.txt that holds event information.
@@ -60,7 +59,7 @@ public class Data{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             Log.d("file", "File already exists");
         }
     }
@@ -94,20 +93,20 @@ public class Data{
     }
 
 
-    public void addEvent(String [] a){
+    public void addEvent(String[] a) {
         //Adding events to arraylist of events
         events.add(new Event(a));
         sort();
 
         //Adding event to text file
 
-        String newEvent= "";
+        String newEvent = "";
 
-        for(String s: a){
+        for (String s : a) {
             newEvent += s + ",";
         }
         //removing last comma
-        newEvent.substring(0, newEvent.length()-2);
+        newEvent.substring(0, newEvent.length() - 2);
 
         //outputting to file
         try {
@@ -115,25 +114,25 @@ public class Data{
             outputStream = context.openFileOutput(fileName, Context.MODE_APPEND);
             outputStream.write(newEvent.getBytes());
             outputStream.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void addEventToText(Event e){
+    public void addEventToText(Event e) {
 
     }
 
-    public void sort(){
+    public void sort() {
         Collections.sort(events);
     }
 
-    public ArrayList <Event> search (GregorianCalendar gDate){
+    public ArrayList<Event> search(GregorianCalendar gDate) {
 
-        ArrayList <Event> day = new ArrayList<>();
+        ArrayList<Event> day = new ArrayList<>();
 
-        for(Event e: events){
-            if(e.getDate().compareTo(gDate) == 0){
+        for (Event e : events) {
+            if (e.getDate().compareTo(gDate) == 0) {
                 day.add(e);
             }
         }
@@ -141,13 +140,13 @@ public class Data{
         return day;
     }
 
-    public ArrayList <Event> searchRange(GregorianCalendar gDate1, GregorianCalendar gDate2){
+    public ArrayList<Event> searchRange(GregorianCalendar gDate1, GregorianCalendar gDate2) {
 
-        ArrayList <Event> eventsRange = new ArrayList<>();
+        ArrayList<Event> eventsRange = new ArrayList<>();
 
-        for(Event e: events){
+        for (Event e : events) {
 
-            if(e.getDate().compareTo(gDate1) < 1 && e.getDate().compareTo(gDate2) > -1){
+            if (e.getDate().compareTo(gDate1) < 1 && e.getDate().compareTo(gDate2) > -1) {
                 eventsRange.add(e);
             }
         }

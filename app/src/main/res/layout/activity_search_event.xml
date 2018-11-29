@@ -65,7 +65,7 @@
                 tools:layout_conversion_absoluteHeight="47dp"
                 tools:layout_conversion_absoluteWidth="150dp"
 
-            />
+                />
 
 
             <TextView
@@ -172,8 +172,8 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true">
 
-                <requestFocus /></Button>
-
+                <requestFocus />
+            </Button>
 
 
             <TextView
