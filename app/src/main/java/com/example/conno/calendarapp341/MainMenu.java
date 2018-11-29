@@ -1,12 +1,10 @@
 package com.example.conno.calendarapp341;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -24,11 +22,12 @@ public class MainMenu extends AppCompatActivity {
     private BottomNavigationView bottom_Nav;
     ArrayList<Event> events;
     Data data = new Data(MainMenu.this);
-    float work =0f;
+    float work = 0f;
     float school = 0f;
     float personal = 0f;
     float family = 0f;
     ArrayList<Entry> yvalues = new ArrayList<Entry>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,18 +40,18 @@ public class MainMenu extends AppCompatActivity {
         data.loadEvents();
         events = data.events;
 
-        for(Event e: events){
-            if(e.getTAG().toLowerCase().equals("work"))
+        for (Event e : events) {
+            if (e.getTAG().toLowerCase().equals("work"))
                 work++;
-            else if(e.getTAG().toLowerCase().equals("school"))
+            else if (e.getTAG().toLowerCase().equals("school"))
                 school++;
-            else if(e.getTAG().toLowerCase().equals("personal"))
+            else if (e.getTAG().toLowerCase().equals("personal"))
                 personal++;
-            else if(e.getTAG().toLowerCase().equals("family"))
+            else if (e.getTAG().toLowerCase().equals("family"))
                 family++;
         }
 
-        yvalues.add(new Entry(work,0));
+        yvalues.add(new Entry(work, 0));
         yvalues.add(new Entry(school, 1));
         yvalues.add(new Entry(personal, 2));
         yvalues.add(new Entry(family, 3));
@@ -75,7 +74,6 @@ public class MainMenu extends AppCompatActivity {
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
 
 
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -87,11 +85,11 @@ public class MainMenu extends AppCompatActivity {
                 case R.id.nav_piechart:
                     break;
                 case R.id.nav_calender:
-                    intent = new Intent(MainMenu.this,CalendarActivity.class);
+                    intent = new Intent(MainMenu.this, CalendarActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.nav_search:
-                    intent = new Intent(MainMenu.this,SearchEventActivity.class);
+                    intent = new Intent(MainMenu.this, SearchEventActivity.class);
                     startActivity(intent);
                     break;
             }

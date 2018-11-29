@@ -48,5 +48,4 @@
         app:layout_constraintTop_toBottomOf="@+id/butcalendar" />
 
 
-
 </android.support.constraint.ConstraintLayout>

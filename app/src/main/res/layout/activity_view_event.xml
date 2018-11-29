@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/nav_menu"
-        android:background="?android:attr/windowBackground"/>
+        android:background="?android:attr/windowBackground" />
 
     <TextView
         android:id="@+id/dateLabel"
