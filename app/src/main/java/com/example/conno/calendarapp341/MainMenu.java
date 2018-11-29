@@ -6,12 +6,16 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -35,7 +39,7 @@ public class MainMenu extends AppCompatActivity {
 
         bottom_Nav = findViewById(R.id.bottom_nav);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
-        PieChart pieChart = (PieChart) findViewById(R.id.pie);
+        final PieChart pieChart = (PieChart) findViewById(R.id.pie);
         pieChart.setUsePercentValues(true);
         data.loadEvents();
         events = data.events;
@@ -63,17 +67,15 @@ public class MainMenu extends AppCompatActivity {
         xVals.add("Personal");
         xVals.add("Family");
 
-
         PieData data = new PieData(xVals, dataSet);
 
         data.setValueFormatter(new PercentFormatter());
 
         pieChart.setData(data);
 
-
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-
+        pieChart.setRotationEnabled(false);
+        
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
