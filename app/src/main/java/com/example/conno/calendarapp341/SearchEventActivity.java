@@ -1,13 +1,12 @@
 package com.example.conno.calendarapp341;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.constraint.solver.widgets.ConstraintHorizontalLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,17 +14,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,12 +41,11 @@ public class SearchEventActivity extends AppCompatActivity {
     boolean rangeBoolean;
 
 
-
     ///////////////////////////////////////////////
     //      Stuff I wont need later
     Data d = new Data(SearchEventActivity.this);
     ////////////////////////////////////////////////
-      
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,14 +91,15 @@ public class SearchEventActivity extends AppCompatActivity {
         menuItem.setChecked(true);
 
     }
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
             switch (menuItem.getItemId()) {
 
                 case R.id.nav_piechart:
-                    intent = new Intent(SearchEventActivity.this,MainMenu.class);
+                    intent = new Intent(SearchEventActivity.this, MainMenu.class);
                     startActivity(intent);
                     break;
                 case R.id.nav_calender:
@@ -120,7 +113,7 @@ public class SearchEventActivity extends AppCompatActivity {
         }
     };
 
-    public void onClickListenter(){
+    public void onClickListenter() {
         requestEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,13 +158,13 @@ public class SearchEventActivity extends AppCompatActivity {
 
                         if (e.getDate().compareTo(cal1) > -1 && e.getDate().compareTo(cal2) < 1 && (calendarCategory.getSelectedItem().toString().equals("All") || calendarCategory.getSelectedItem().toString().equals(e.getTAG()))) {
 
-                            if(!addedToArray) {
+                            if (!addedToArray) {
                                 Log.d("Array", "Value entered to array");
                                 addedToArray = true;
                             }
                             currentEvent += "Title: " + e.getEventName() + "\n" +
                                     "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + (e.getDate().get(Calendar.MONTH) + 1) + "/" + e.getDate().get(Calendar.YEAR) + "\n" +
-                                    "Start time: " + e.getStartHour() + ":"  + e.getStartMin() + "\n" +
+                                    "Start time: " + e.getStartHour() + ":" + e.getStartMin() + "\n" +
                                     "End time: " + e.getEndTime() + "\n" +
                                     "Category: " + e.getTAG() + "\n" +
                                     "Location: " + e.getLocation() + "\n" +
@@ -182,8 +175,8 @@ public class SearchEventActivity extends AppCompatActivity {
                         eventsDisplay += currentEvent;
 
                         Log.d("test", currentEvent);
-                        countLoops ++;
-                        if(!enteredSearch) {
+                        countLoops++;
+                        if (!enteredSearch) {
                             Log.d("Search", "Search has been entered");
                             enteredSearch = true;
                         }
@@ -201,7 +194,7 @@ public class SearchEventActivity extends AppCompatActivity {
                     displayEvents.setVisibility(View.VISIBLE);
                     eventsTitle.setVisibility(View.VISIBLE);
 
-                } else if (dateFrom.getText().toString().matches("\\d{2}\\/\\d{2}\\/\\d{4}")  && !rangeBoolean) {
+                } else if (dateFrom.getText().toString().matches("\\d{2}\\/\\d{2}\\/\\d{4}") && !rangeBoolean) {
 
                     Log.d("Search", "Single Day Search");
 
@@ -237,7 +230,7 @@ public class SearchEventActivity extends AppCompatActivity {
 
                     for (Event e : events) {
                         countLoops++;
-                        if(!enteredSearch) {
+                        if (!enteredSearch) {
                             Log.d("Search", "Search has been entered");
                             enteredSearch = true;
                         }
@@ -246,11 +239,11 @@ public class SearchEventActivity extends AppCompatActivity {
 
                         if (e.getDate().compareTo(cal1) > -1 && e.getDate().compareTo(cal2) < 1 && (calendarCategory.getSelectedItem().toString().equals("All") || calendarCategory.getSelectedItem().toString().equals(e.getTAG()))) {
 
-                            countEvents ++;
+                            countEvents++;
 
                             currentEvent += "Title: " + e.getEventName() + "\n" +
                                     "Date: " + e.getDate().get(Calendar.DAY_OF_MONTH) + "/" + (e.getDate().get(Calendar.MONTH) + 1) + "/" + e.getDate().get(Calendar.YEAR) + "\n" +
-                                    "Start time: " +e.getStartHour()+":"+e.getStartMin()+"\n"+
+                                    "Start time: " + e.getStartHour() + ":" + e.getStartMin() + "\n" +
                                     "End time: " + e.getEndTime() + "\n" +
                                     "Category: " + e.getTAG() + "\n" +
                                     "Location: " + e.getLocation() + "\n" +
@@ -281,11 +274,11 @@ public class SearchEventActivity extends AppCompatActivity {
 
         rangeQuery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(rangeQuery.isChecked()){
+                if (rangeQuery.isChecked()) {
                     toDateLayout.setVisibility(View.VISIBLE);
                     rangeBoolean = true;
                     Log.d("Switch", "Changed to true");
-                }else{
+                } else {
                     toDateLayout.setVisibility(View.INVISIBLE);
                     rangeBoolean = false;
                     Log.d("Switch", "Changed to false");
@@ -294,17 +287,17 @@ public class SearchEventActivity extends AppCompatActivity {
         });
     }
 
-    public String getCorrectDate(String currentMonth){
+    public String getCorrectDate(String currentMonth) {
 
-        String [] splitDate = currentMonth.split("/");
+        String[] splitDate = currentMonth.split("/");
         int month = Integer.parseInt(splitDate[1]);
-        month --;
+        month--;
 
         String stringMonth = "";
 
-        if(month<10){
+        if (month < 10) {
             stringMonth += "0" + Integer.toString(month);
-        }else{
+        } else {
             stringMonth += Integer.toString(month);
         }
 
@@ -315,13 +308,13 @@ public class SearchEventActivity extends AppCompatActivity {
 
 
     }
-    public String increaseMonth (String month){
+
+    public String increaseMonth(String month) {
 
         int rightMonth = Integer.parseInt(month) + 1;
 
         return Integer.toString(rightMonth);
     }
-
 
 
 }

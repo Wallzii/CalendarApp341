@@ -1,36 +1,23 @@
 package com.example.conno.calendarapp341;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.text.DateFormatSymbols;
 import java.util.GregorianCalendar;
 
 public class CalendarActivity extends AppCompatActivity {
@@ -50,7 +37,7 @@ public class CalendarActivity extends AppCompatActivity {
     private Event[] todayEvents;
 
     //@Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         data = new Data(CalendarActivity.this);
         data.loadEvents();
@@ -74,13 +61,13 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Toast.makeText(getApplicationContext(),"Click ListItem Number " + position, Toast.LENGTH_LONG).show();
-                Intent vintent = new Intent(getApplicationContext(),ViewEventActivity.class);
+                Intent vintent = new Intent(getApplicationContext(), ViewEventActivity.class);
                 Event sendingEvent = todayEvents[position];
                 // Year, Month, dayOfMonth, StartTime,EndTime,Tag,Title,Description,Location
-                String sending = sendingEvent.getDateString()+","+sendingEvent.getStartHour()+","+sendingEvent.getStartMin()+
-                        ","+sendingEvent.getEndTime()+","+sendingEvent.getTAG()+","+sendingEvent.getEventName()
-                        + ","+sendingEvent.getDesc() +","+sendingEvent.getLocation();
-                vintent.putExtra("event",sending);
+                String sending = sendingEvent.getDateString() + "," + sendingEvent.getStartHour() + "," + sendingEvent.getStartMin() +
+                        "," + sendingEvent.getEndTime() + "," + sendingEvent.getTAG() + "," + sendingEvent.getEventName()
+                        + "," + sendingEvent.getDesc() + "," + sendingEvent.getLocation();
+                vintent.putExtra("event", sending);
                 startActivity(vintent);
             }
         });
@@ -112,14 +99,15 @@ public class CalendarActivity extends AppCompatActivity {
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this,AddEventActivity.class);
+                Intent intent = new Intent(CalendarActivity.this, AddEventActivity.class);
                 String sendDate = "" + selected.get(Calendar.DAY_OF_MONTH)
-                        + "/" + (selected.get(Calendar.MONTH)+1)
+                        + "/" + (selected.get(Calendar.MONTH) + 1)
                         + "/" + selected.get(Calendar.YEAR);
                 intent.putExtra("date", sendDate);
                 startActivity(intent);
             }
         });
+
         bottom_Nav = findViewById(R.id.bottom_nav_calender);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
         Menu menu = bottom_Nav.getMenu();
@@ -127,27 +115,29 @@ public class CalendarActivity extends AppCompatActivity {
         menuItem.setChecked(true);
 
     }
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
             switch (menuItem.getItemId()) {
 
                 case R.id.nav_piechart:
-                    intent = new Intent(CalendarActivity.this,MainMenu.class);
+                    intent = new Intent(CalendarActivity.this, MainMenu.class);
                     startActivity(intent);
                     break;
                 case R.id.nav_calender:
                     break;
                 case R.id.nav_search:
-                    intent = new Intent(CalendarActivity.this,SearchEventActivity.class);
+                    intent = new Intent(CalendarActivity.this, SearchEventActivity.class);
                     startActivity(intent);
                     break;
             }
             return false;
         }
     };
-    public void showEventsForDay(){
+
+    public void showEventsForDay() {
         todayEvents = getTodayEvents();
         adapter = new EventAdapter(this, todayEvents);
         eventList.setAdapter(adapter);
@@ -156,14 +146,14 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
 
-    public Event[] getTodayEvents(){
+    public Event[] getTodayEvents() {
         //TODO SORT EVENTS AND MAKE THEM CLICKABLE
         ArrayList<Event> today = new ArrayList<>();
-        for(Event e : eventData){
+        for (Event e : eventData) {
 
-            if((selected.get(Calendar.YEAR)==e.getDate().get(Calendar.YEAR))&&
-                    (selected.get(Calendar.MONTH)==e.getDate().get(Calendar.MONTH ))&&
-                    (selected.get(Calendar.DAY_OF_MONTH)==e.getDate().get(Calendar.DAY_OF_MONTH))){
+            if ((selected.get(Calendar.YEAR) == e.getDate().get(Calendar.YEAR)) &&
+                    (selected.get(Calendar.MONTH) == e.getDate().get(Calendar.MONTH)) &&
+                    (selected.get(Calendar.DAY_OF_MONTH) == e.getDate().get(Calendar.DAY_OF_MONTH))) {
                 today.add(e);
             }
         }
