@@ -74,7 +74,10 @@ public class ViewEventActivity extends AppCompatActivity {
 
             Intent intent = new Intent(getApplicationContext(), InviteSMS.class);
             Bundle bundle = new Bundle();
-            bundle.putString("eventDate", event.getDateString());
+            String dateDisplay = "" + new DateFormatSymbols().getMonths()[event.getDate().get(Calendar.MONTH)]
+                + " " + event.getDate().get(Calendar.DAY_OF_MONTH)
+                + " " + event.getDate().get(Calendar.YEAR);
+            bundle.putString("eventDate", dateDisplay);
             bundle.putString("eventTitle", event.getEventName());
             bundle.putString("eventStartHour", event.getStartHour());
             bundle.putString("eventStartMin", event.getStartMin());

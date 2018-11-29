@@ -18,6 +18,8 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class AddEventActivity extends AppCompatActivity {
@@ -132,7 +134,10 @@ public class AddEventActivity extends AppCompatActivity {
             Event event = new Event(attributes);
             Intent intent = new Intent(AddEventActivity.this, InviteSMS.class);
             Bundle bundle = new Bundle();
-            bundle.putString("eventDate", event.getDateString());
+            String dateDisplay = "" + new DateFormatSymbols().getMonths()[event.getDate().get(Calendar.MONTH)]
+                    + " " + event.getDate().get(Calendar.DAY_OF_MONTH)
+                    + " " + event.getDate().get(Calendar.YEAR);
+            bundle.putString("eventDate", dateDisplay);
             bundle.putString("eventTitle", event.getEventName());
             bundle.putString("eventStartHour", event.getStartHour());
             bundle.putString("eventStartMin", event.getStartMin());
