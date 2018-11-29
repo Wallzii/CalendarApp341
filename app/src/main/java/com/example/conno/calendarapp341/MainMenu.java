@@ -70,7 +70,7 @@ public class MainMenu extends AppCompatActivity {
         data.setValueFormatter(new PercentFormatter());
 
         pieChart.setData(data);
-
+        pieChart.setTouchEnabled(false);
 
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
 
