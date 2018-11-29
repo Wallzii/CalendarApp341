@@ -43,4 +43,5 @@
     <string name="textview_eventSMSDetails">Event Details Placeholder Text</string>
     <string name="textView_eventData">Event Data:</string>
 
+    <string name="chart_desc">Each slice of the pie\n represents a tag for your events!\nCheck how you schedule your time:</string>
 </resources>

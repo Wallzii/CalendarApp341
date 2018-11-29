@@ -4,12 +4,12 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
@@ -19,13 +19,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
-
 public class InviteSMS extends AppCompatActivity {
 
 
     Intent intent;
-//    private Data data;
+    //    private Data data;
     TextView displayEvents;
     private String date, title, startHour, startMin, endHour, tag, location, description;
     private BottomNavigationView bottom_Nav;
@@ -62,30 +60,33 @@ public class InviteSMS extends AppCompatActivity {
 
 
     }
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
             switch (menuItem.getItemId()) {
 
                 case R.id.nav_piechart:
-                    intent = new Intent(InviteSMS.this,MainMenu.class);
+                    intent = new Intent(InviteSMS.this, MainMenu.class);
                     startActivity(intent);
                     break;
                 case R.id.nav_calender:
-                    intent = new Intent(InviteSMS.this,CalendarActivity.class);
+                    intent = new Intent(InviteSMS.this, CalendarActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.nav_search:
-                    intent = new Intent(InviteSMS.this,SearchEventActivity.class);
+                    intent = new Intent(InviteSMS.this, SearchEventActivity.class);
                     startActivity(intent);
                     break;
             }
             return false;
         }
     };
+
     /**
      * Formats event data into a string that can be delivered to a recipient via SMS.
+     *
      * @return String
      */
     private String buildEventData() {
@@ -115,7 +116,7 @@ public class InviteSMS extends AppCompatActivity {
             tag = bundle.getString("eventTag");
             description = bundle.getString("eventDescription");
             location = bundle.getString("eventLocation");
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.d("error", "parse error");
         }
     }
@@ -124,8 +125,9 @@ public class InviteSMS extends AppCompatActivity {
     /**
      * Sends an SMS containing formatted event data. A phone number must be entered, but will not
      * be checked for its validity.
+     *
      * @param phoneNumber Phone number for intended recipient.
-     * @param textData String to be delivered to inputted phone number.
+     * @param textData    String to be delivered to inputted phone number.
      */
     public void sendSMS(String phoneNumber, String textData) {
 
@@ -143,6 +145,7 @@ public class InviteSMS extends AppCompatActivity {
 
     /**
      * Listener for sens SMS button.
+     *
      * @param view Current view.
      */
     public void buttonSendSMS(View view) {
@@ -166,7 +169,7 @@ public class InviteSMS extends AppCompatActivity {
                 Manifest.permission.SEND_SMS
         };
 
-        if(!hasPermissions(this, PERMISSIONS)){
+        if (!hasPermissions(this, PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
     }
@@ -175,7 +178,8 @@ public class InviteSMS extends AppCompatActivity {
      * Make sure the user's device has the appropriate permissions for the application send an SMS.
      * Also make sure that the user's device allows the application to check if specific permissions
      * are met.
-     * @param context Current context.
+     *
+     * @param context     Current context.
      * @param permissions Permissions that need to be checked (SMS).
      * @return boolean
      */

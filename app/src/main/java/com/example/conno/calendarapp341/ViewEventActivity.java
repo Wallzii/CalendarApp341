@@ -1,11 +1,11 @@
 package com.example.conno.calendarapp341;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +19,7 @@ public class ViewEventActivity extends AppCompatActivity {
     private BottomNavigationView bottom_Nav;
 
     Event event;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,13 +27,13 @@ public class ViewEventActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("View Event");
 
-        String received=getIntent().getStringExtra("event");
+        String received = getIntent().getStringExtra("event");
         event = new Event(received.split(","));
 
         String dateDisplay = "" + new DateFormatSymbols().getMonths()[event.getDate().get(Calendar.MONTH)]
                 + " " + event.getDate().get(Calendar.DAY_OF_MONTH)
                 + " " + event.getDate().get(Calendar.YEAR);
-        String strTime =event.getStartHour()+":"+event.getStartMin();
+        String strTime = event.getStartHour() + ":" + event.getStartMin();
 
         TextView titleT = findViewById(R.id.titleText);
         TextView dateT = findViewById(R.id.dateText);
@@ -68,40 +69,45 @@ public class ViewEventActivity extends AppCompatActivity {
     /**
      * Listener for button that passes event data to InviteSMS.class to send as an SMS reminder
      * to the specified recipient phone number.
+     *
      * @param view
      */
     public void buttonSendEventSMSReminder(View view) {
 
-            Intent intent = new Intent(getApplicationContext(), InviteSMS.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("eventDate", event.getDateString());
-            bundle.putString("eventTitle", event.getEventName());
-            bundle.putString("eventStartHour", event.getStartHour());
-            bundle.putString("eventStartMin", event.getStartMin());
-            bundle.putString("eventEndHour", event.getEndTime());
-            bundle.putString("eventTag", event.getTAG());
-            bundle.putString("eventDescription", event.getDesc());
-            bundle.putString("eventLocation", event.getLocation());
-            intent.putExtras(bundle);
-            startActivity(intent);
+        Intent intent = new Intent(getApplicationContext(), InviteSMS.class);
+        Bundle bundle = new Bundle();
+        String dateDisplay = "" + new DateFormatSymbols().getMonths()[event.getDate().get(Calendar.MONTH)]
+                + " " + event.getDate().get(Calendar.DAY_OF_MONTH)
+                + " " + event.getDate().get(Calendar.YEAR);
+        bundle.putString("eventDate", dateDisplay);
+        bundle.putString("eventTitle", event.getEventName());
+        bundle.putString("eventStartHour", event.getStartHour());
+        bundle.putString("eventStartMin", event.getStartMin());
+        bundle.putString("eventEndHour", event.getEndTime());
+        bundle.putString("eventTag", event.getTAG());
+        bundle.putString("eventDescription", event.getDesc());
+        bundle.putString("eventLocation", event.getLocation());
+        intent.putExtras(bundle);
+        startActivity(intent);
 
     }
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Intent intent;
             switch (menuItem.getItemId()) {
 
                 case R.id.nav_piechart:
-                    intent = new Intent(ViewEventActivity.this,MainMenu.class);
+                    intent = new Intent(ViewEventActivity.this, MainMenu.class);
                     startActivity(intent);
                     break;
                 case R.id.nav_calender:
-                    intent = new Intent(ViewEventActivity.this,CalendarActivity.class);
+                    intent = new Intent(ViewEventActivity.this, CalendarActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.nav_search:
-                    intent = new Intent(ViewEventActivity.this,SearchEventActivity.class);
+                    intent = new Intent(ViewEventActivity.this, SearchEventActivity.class);
                     startActivity(intent);
                     break;
             }
