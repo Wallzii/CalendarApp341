@@ -41,7 +41,7 @@ public class MainMenu extends AppCompatActivity {
         actionBar.setTitle("Schedule Breakdown");
         bottom_Nav = findViewById(R.id.bottom_nav);
         bottom_Nav.setOnNavigationItemSelectedListener(navListener);
-        final PieChart pieChart = (PieChart) findViewById(R.id.pie);
+        PieChart pieChart = (PieChart) findViewById(R.id.pie);
         pieChart.setUsePercentValues(true);
         data.loadEvents();
         events = data.events;
@@ -77,7 +77,6 @@ public class MainMenu extends AppCompatActivity {
 
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         pieChart.setRotationEnabled(false);
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
